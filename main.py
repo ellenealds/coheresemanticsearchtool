@@ -3,7 +3,7 @@ import pandas as pd
 
 @st.cache
 def load_data():
-    df = pd.read_csv('DiscordData\application\coheresemanticsearchtool\cohere_docs_embeddings.csv')
+    df = pd.read_csv('cohere_docs_embeddings.csv')
     return df
 
 df = load_data()
