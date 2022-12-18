@@ -32,3 +32,35 @@ if st.button('Search'):
     # display the results
     st.write(results.head(num_results))
 
+df = df.rename(columns={0: 'embeddings'})
+# drop rows frm text_df that havve less than 8 words
+df = df[df['text'].str.split().str.len() > 10]
+from annoy import AnnoyIndex
+
+# Create the search index, pass the size of embedding
+search_index = AnnoyIndex(4096, 'angular')
+# Add all the vectors to the search index, these are stored in the dataframe 'post_members['embeddings']'
+for i, vector in enumerate(df['embeddings']):
+    search_index.add_item(i, vector)
+# Build the search index
+search_index.build(10)
+
+    
+def search(query, n_results, df, search_index, co):
+    # Get the query's embedding
+    query_embed = co.embed(texts=[query],
+                    model="large",
+                    truncate="LEFT").embeddings
+
+    # Get the nearest neighbors
+    neighbors = search_index.get_nns_by_vector(query_embed[0], n_results)
+    # Return the results
+    return df.iloc[neighbors]
+
+# Search for the query
+results = search(search_bar, num_results, df, search_index, co)
+
+# Display the results in a bootstrap card
+for i, row in results.iterrows():
+    st.write(row['text'])
+    
