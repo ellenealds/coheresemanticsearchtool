@@ -32,7 +32,7 @@ if st.button('Search'):
     # display the results
     st.write(results.head(num_results))
 
-
+df = pd.read_csv('cohere_docs_embeddings.csv')
 # drop rows frm text_df that havve less than 8 words
 df = df[df['text'].str.split().str.len() > 10]
 from annoy import AnnoyIndex
