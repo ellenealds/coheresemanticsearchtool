@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import cohere
+co = cohere.Client('cohere_api_key') 
 
 @st.cache
 def load_data():
@@ -7,6 +9,17 @@ def load_data():
     return df
 
 df = load_data()
+
+@st.cache
+def embeddings(texts): 
+  response = co.embed(
+    model='large',
+    texts=list(texts), 
+    truncate='LEFT').embeddings
+  return response
+
+# apply the embeddings function to the text column
+df['embeddings'] = embeddings(df['text'])
 
 st.title('Cohere Doc Semantic Search Tool')
 
