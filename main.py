@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import cohere
-co = cohere.Client('cohere_api_key') 
+co = cohere.Client('bE6Is3wvtmXyHtgnCQocDIgdH7PcYwdR21ZhnXgN') 
 
 @st.cache
 def load_data():
