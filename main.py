@@ -32,7 +32,7 @@ if st.button('Search'):
     # display the results
     st.write(results.head(num_results))
 
-df = df.rename(columns={0: 'embeddings'})
+
 # drop rows frm text_df that havve less than 8 words
 df = df[df['text'].str.split().str.len() > 10]
 from annoy import AnnoyIndex
@@ -63,4 +63,3 @@ results = search(search_bar, num_results, df, search_index, co)
 # Display the results in a bootstrap card
 for i, row in results.iterrows():
     st.write(row['text'])
-    
