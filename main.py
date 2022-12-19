@@ -97,31 +97,14 @@ query = st.text_input('Search for a document')
 # I want the text to be collapsible using acordion
 def card(title, text):
     st.markdown(f"""
-    <div class="card">
+    <div class="card">  
         <div class="card-body">
             <h5 class="card-title">{title}</h5>
-            # collapse the text
-            <p class="card-text">
-                <div class="accordion" id="accordionExample">
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Click to expand
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                            <div class="card-body">
-                                {text}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </p>
+            <p class="card-text">{text}</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
+    
 
 
             
