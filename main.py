@@ -80,5 +80,8 @@ if st.button('Search'):
 
     # display the results
     for i, row in results.iterrows():
+        st.write(query)
         st.write(row['answer'])
-        st.write(row['text'])
+        # add a collapsible section to display the text
+        with st.beta_expander('Show text'):
+            st.write(row['text'])
