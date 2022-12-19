@@ -40,12 +40,12 @@ def search(query, n_results, df, search_index, co):
                     model="large",
                     truncate="LEFT").embeddings
 
-    # Get the nearest neighbors and similarity scores
-    neighbors, scores = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
-    # scores is the 'similarity score' between the query and the results, add this to the dataframe
-    df['similarity_score'] = scores
-    # Return the results and sort by similarity score
-    return df.iloc[neighbors].sort_values(by='similarity_score', ascending=False)
+    # Get the nearest neighbors and similarity score for the query and the embeddings, append it to the dataframe
+    nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
+    df['similarity'] = nearest_neighbors[1]
+    df['nearest_neighbors'] = nearest_neighbors[0]
+    df = df.sort_values(by='similarity', ascending=False)
+    return df
 
 # add a title to the app
 st.title('Cohere Doc Semantic Search Tool')
