@@ -63,7 +63,7 @@ def gen_answer(q, para):
         p=0.75, 
         frequency_penalty=0, 
         presence_penalty=0, 
-        stop_sequences=["."], 
+        stop_sequences=[], 
         return_likelihoods='NONE') 
     return response.generations[0].text
 
