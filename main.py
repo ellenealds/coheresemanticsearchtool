@@ -85,6 +85,6 @@ if st.button('Search'):
         # add a collapsible section to display the text
         with st.expander('Show text'):
             st.write(row['text'])
-        # add a section to display a html page
+        # add a section to display the contents of a html page
         with st.expander('Show html'):
-            st.markdown('https://docs.cohere.ai/docs/the-cohere-platform')
+            st.markdown('https://docs.cohere.ai/docs/the-cohere-platform', unsafe_allow_html=True)
