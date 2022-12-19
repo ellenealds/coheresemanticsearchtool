@@ -68,14 +68,15 @@ def gen_answer(q, para):
 st.title('Cohere Doc Semantic Search Tool')
 
 # add a search bar
-search_bar = st.text_input('Search for a document')
+query = st.text_input('Search for a document')
+
 
 # when the user clicks search, run the search function
 if st.button('Search'):
-    results = search(search_bar, 5, df, search_index, co)
+    results = search(query, 5, df, search_index, co)
 
     # for each row in the dataframe, generate an answer
-    results['answer'] = results.apply(lambda x: gen_answer('What are usage examples for the generate endpoint?', x['text']), axis=1)
+    results['answer'] = results.apply(lambda x: gen_answer(query, x['text']), axis=1)
 
     # display the results
     for i, row in results.iterrows():
