@@ -95,7 +95,7 @@ query = st.text_input('Search for a document')
 
 # add a card function that uses bootstrap to display the results
 # I want the text to be collapsible using acordion
-def card(category, title, text, link):
+def card(title, text):
     st.markdown(f"""
     <div id="accordion">
         <div class="card">
@@ -110,15 +110,18 @@ def card(category, title, text, link):
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
                 {text}
-                <a href="{link}">Link</a>
             </div>
             </div>
         </div>
     </div>
-    
     """, unsafe_allow_html=True)
+
             
-                        
+# create a variable called test that contains 1 row of the dataframe
+test = df.iloc[0]
+
+# run the card function
+card( test['title'], test['text'])
 
 
 # when the user clicks search, run the search function
