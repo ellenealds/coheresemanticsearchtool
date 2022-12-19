@@ -57,12 +57,10 @@ search_bar = st.text_input('Search for a document')
 
 # add a button to trigger the search
 
-if st.button('Search'):
+#if st.button('Search'):
     # do the search
-    results = search(search_bar, 5, df, search_index, co)
-    # display the results
-    '''for i, row in results.iterrows():
-        st.write(row['text'])'''
+results = search(search_bar, 5, df, search_index, co)
+   
 
 def gen_answer(q, para): 
     response = co.generate( 
