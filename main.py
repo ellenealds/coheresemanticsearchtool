@@ -87,9 +87,14 @@ st.title('Cohere Doc Semantic Search Tool')
 # add a search bar
 query = st.text_input('Search for a document')
 
+# add a dropdown to select from the list of type from the df
+type = st.selectbox('Select a type', df['type'].unique())
+
 
 # when the user clicks search, run the search function
 if st.button('Search'):
+    # filter the dataframe to only include the selected type
+    df = df[df['type'] == type]
     results = search(query, 5, df, search_index, co)
 
     # for each row in the dataframe, generate an answer
@@ -103,13 +108,13 @@ if st.button('Search'):
     st.subheader("Relevant documents")
     # display the results
     for i, row in results.iterrows():
-        
-        # add a subheader here
-        
+        st.write(row['type'])
+        st.markdown(row['link'], unsafe_allow_html=True)
+        st.write(row['category'])
+        st.write(row['title'])
         st.write(row['answer'])
         # add a collapsible section to display the text
         with st.expander('Show text'):
             st.write(row['text'])
-        # add a section to display the contents of a html page
-        with st.expander('Show html'):
-            st.markdown('https://docs.cohere.ai/docs/the-cohere-platform', unsafe_allow_html=True)
+       
+       
