@@ -33,7 +33,7 @@ def load_data(df):
     df = pd.concat([df, embeddings_df], axis=1)
     return df
 
-df = load_data()
+df = load_data(df)
 
 st.title('Cohere Doc Semantic Search Tool')
 
