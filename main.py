@@ -14,7 +14,7 @@ def embeddings(texts,sleep_time=5):
         truncate='LEFT').embeddings
     return response
 
-df = pd.read_excel('cohere_docs_embeddings.xlsx')
+df = pd.read_excel('coherefulllistoflinks.xlsx')
 
 @st.experimental_singleton
 def load_data(df,):
