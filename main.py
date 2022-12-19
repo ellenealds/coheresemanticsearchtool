@@ -82,37 +82,7 @@ def gen_better_answer(ques, ans):
         #num_generations=5) 
     return response.generations[0].text
 
-
-
-# add a title to the app
-st.title('Co:ask')
-# add a subtitle
-st.subheader('A semantic search tool built for the Co:here community')
-
-# add a smaller text
-st.write('This tool uses the Co:here API to search through the Co:here knowledge base and generate answers to questions. It uses the Co:here embed endpoint to find relevant documents, and the Co:here generate endpoint to generate answers to questions.')
-st.write('Select a question from the examples or ask your own using the search function.')
-
-# add a button to search for a specific question
-if st.button('What can I build with the classify endpoint?'):
-    query = 'What can I build with the classify endpoint?'
-    results = search(query, 5, df, search_index, co)
-
-if st.button('ow do I use Cohere?'):
-    query = 'How do I use Cohere?'
-    results = search(query, 5, df, search_index, co)
-
-if st.button('How do I use Cohere to build a chatbot?'):
-    query = 'How do I use Cohere to build a chatbot?'
-    results = search(query, 5, df, search_index, co)
-
-# add a search bar
-query = st.text_input('Ask a question about Co:here')
-
-# when the user clicks search, run the search function
-if st.button('Search'):
-    results = search(query, 5, df, search_index, co)
-
+def display(query, results):
     # for each row in the dataframe, generate an answer concurrently
     with ThreadPoolExecutor(max_workers=5) as executor:
         results['answer'] = list(executor.map(gen_answer, [query]*len(results), results['text']))
@@ -137,5 +107,40 @@ if st.button('Search'):
         with st.expander('Read more'):
             st.write(row['text'])
         st.write('')
+
+# add a title to the app
+st.title("Co:ask")
+# add a subtitle
+st.subheader("A semantic search tool built for the Co:here community")
+
+# add a smaller text
+st.write("This tool uses the Co:here API to search through the Co:here knowledge base and generate answers to questions. It uses the Co:here embed endpoint to find relevant documents, and the Co:here generate endpoint to generate answers to questions.")
+st.write('Select a question from the examples or ask your own using the search function.')
+
+# add a button to search for a specific question
+if st.button('What can I build with the classify endpoint?'):
+    query = 'What can I build with the classify endpoint?'
+    results = search(query, 5, df, search_index, co)
+    display(query, results)
+
+if st.button('How do I use Cohere?'):
+    query = 'How do I use Cohere?'
+    results = search(query, 5, df, search_index, co)
+    display(query, results)
+
+if st.button('How do I use Cohere to build a chatbot?'):
+    query = 'How do I use Cohere to build a chatbot?'
+    results = search(query, 5, df, search_index, co)
+    display(query, results)
+
+# add a search bar
+query = st.text_input('Ask a question about Co:here')
+
+# when the user clicks search, run the search function
+if st.button('Search'):
+    results = search(query, 5, df, search_index, co)
+    display(query, results)
+
+
        
        
