@@ -97,12 +97,15 @@ if st.button('Search'):
     answers = results['answer'].tolist()
     # run the function to generate a better answer
     answ = gen_better_answer(query, answers)
-
-
+    #st.write(query)
+    st.subheader("Cohere's answer")
+    st.write(answ)
+    st.subheader("Relevant documents")
     # display the results
     for i, row in results.iterrows():
-        st.write(query)
-        st.write(answ)
+        
+        # add a subheader here
+        
         st.write(row['answer'])
         # add a collapsible section to display the text
         with st.expander('Show text'):
