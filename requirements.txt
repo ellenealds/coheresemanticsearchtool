@@ -3,5 +3,3 @@ pandas
 annoy
 openpyxl
 cohere
-time
-pipenv / pip
