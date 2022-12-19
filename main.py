@@ -99,6 +99,8 @@ def display(query, results):
     st.subheader("Relevant documents")
     # display the results
     for i, row in results.iterrows():
+        # display the 'Category' as a coloured pill
+        st.markdown(f'<span style="color: #fff; background-color: #000; padding: 5px; border-radius: 5px;">{row["Category"]}</span>', unsafe_allow_html=True)
         st.markdown(f'**{row["title"]}**')
         # display the url as a hyperlink and add a button to open the url in a new tab
         st.markdown(f'[{row["link"]}]({row["link"]})')
