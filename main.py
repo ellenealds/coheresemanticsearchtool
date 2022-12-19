@@ -10,17 +10,14 @@ def embeddings(texts):
     truncate='LEFT').embeddings
   return response
 
-@st.cache
-def load_data():
-    df = pd.read_excel('cohere_docs_embeddings.xlsx')
-    return df
-
-#df = load_data()
+df = pd.read_excel('cohere_docs_embeddings.xlsx')
 
 @st.cache
-def embed(df):
+def load_data(allow_output_mutation=True):
     df['embeddings'] = df['text'].apply(embeddings)
     return df
+
+df = load_data()
 
 st.title('Cohere Doc Semantic Search Tool')
 
