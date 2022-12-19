@@ -110,7 +110,7 @@ if st.button('Search'):
     for i, row in results.iterrows():
         st.write(row['Type'])
         st.markdown(row['link'], unsafe_allow_html=True)
-        st.write(row['category'])
+        st.write(row['Category'])
         st.write(row['title'])
         st.write(row['answer'])
         # add a collapsible section to display the text
