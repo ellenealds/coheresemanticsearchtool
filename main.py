@@ -55,19 +55,11 @@ st.title('Cohere Doc Semantic Search Tool')
 # add a search bar
 search_bar = st.text_input('Search for a document')
 
-# add a select box for the search type
-
-search_type = st.selectbox('Search Type', ('Exact', 'Fuzzy', 'Similar'))
-
-# add a slider for the number of results to return
-
-num_results = st.slider('Number of Results', 1, 10, 5)
-
 # add a button to trigger the search
 
 if st.button('Search'):
     # do the search
-    results = search(search_bar, num_results, df, search_index, co)
+    results = search(search_bar, 5, df, search_index, co)
     # display the results
     for i, row in results.iterrows():
         st.write(row['text'])
