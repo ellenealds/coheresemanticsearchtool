@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import cohere
 import time
+from annoy import AnnoyIndex
 co = cohere.Client('bE6Is3wvtmXyHtgnCQocDIgdH7PcYwdR21ZhnXgN') 
 
 def embeddings(texts,sleep_time=5):
@@ -15,13 +16,26 @@ def embeddings(texts,sleep_time=5):
 
 df = pd.read_excel('cohere_docs_embeddings.xlsx')
 
-@st.cache
-def load_data(df):
+@st.experimental_singleton
+def load_data(df,):
     df['embeddings'] = embeddings(df['text'])
-    return df
+    # drop rows frm text_df that havve less than 8 words
+    df = df[df['text'].str.split().str.len() > 10]
+    # Create the search index, pass the size of embedding
+    search_index = AnnoyIndex(4096, 'angular')
+    # Add all the vectors to the search index, these are stored in the dataframe 'post_members['embeddings']'
+    for i, vector in enumerate(df['embeddings']):
+        search_index.add_item(i, vector)
+    # Build the search index
+    search_index.build(10)
+    #save the search index
+    search_index.save('search_index.ann')
+    return df, search_index
 
-df = load_data(df)
+df, search_index = load_data(df)
 
+
+# add a title to the app
 st.title('Cohere Doc Semantic Search Tool')
 
 # add a search bar
@@ -46,18 +60,7 @@ if st.button('Search'):
     # display the results
     st.write(results.head(num_results))
 
-#df = pd.read_csv('cohere_docs_embeddings.csv')
-# drop rows frm text_df that havve less than 8 words
-df = df[df['text'].str.split().str.len() > 10]
-from annoy import AnnoyIndex
 
-# Create the search index, pass the size of embedding
-search_index = AnnoyIndex(4096, 'angular')
-# Add all the vectors to the search index, these are stored in the dataframe 'post_members['embeddings']'
-for i, vector in enumerate(df['embeddings']):
-    search_index.add_item(i, vector)
-# Build the search index
-search_index.build(10)
 
     
 def search(query, n_results, df, search_index, co):
