@@ -94,21 +94,26 @@ query = st.text_input('Search for a document')
 
 
 # add a card function that uses bootstrap to display the results
-# I want the text to be collapsible
-def card(category, text, link):
+# I want the text to be collapsible using acordion
+def card(category, title, text, link):
     st.markdown(f"""
     <div class="card">
+        <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            {title}
+            </button>
+        </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
-            <h5 class="card-title">{category}</h5>
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                    {text}
-                </div>
-            </div>
-            <a href="{link}" class="btn btn-primary">Go to link</a>
+            {text}
         </div>
     </div>
     """, unsafe_allow_html=True)
+                
+
 
 # when the user clicks search, run the search function
 if st.button('Search'):
