@@ -93,6 +93,17 @@ query = st.text_input('Search for a document')
 #types = ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation']
 
 
+# add a card function that uses bootstrap to display the results
+def card(title, text, link):
+    st.markdown(f"""
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{title}</h5>
+            <p class="card-text">{text}</p>
+            <a href="{link}" class="btn btn-primary">Go to link</a>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # when the user clicks search, run the search function
@@ -113,13 +124,6 @@ if st.button('Search'):
     st.subheader("Relevant documents")
     # display the results
     for i, row in results.iterrows():
-        st.write(row['Type'])
-        st.markdown(row['link'], unsafe_allow_html=True)
-        st.write(row['Category'])
-        st.write(row['title'])
-        st.write(row['answer'])
-        # add a collapsible section to display the text
-        with st.expander('Show text'):
-            st.write(row['text'])
+        card(row['title'], row['text'], row['link'])
        
        
