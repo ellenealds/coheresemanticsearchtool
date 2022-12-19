@@ -83,5 +83,5 @@ if st.button('Search'):
         st.write(query)
         st.write(row['answer'])
         # add a collapsible section to display the text
-        with st.beta_expander('Show text'):
+        with st.expander('Show text'):
             st.write(row['text'])
