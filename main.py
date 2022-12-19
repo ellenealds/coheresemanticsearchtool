@@ -70,7 +70,7 @@ def gen_answer(q, para):
 def gen_better_answer(ques, ans): 
     response = co.generate( 
         model='command-xlarge-20221108', 
-        prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a new answer that uses all the answers and makes reference to the question.', 
+        prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a new answer that uses all the answers, makes reference to the question and provides context.', 
         max_tokens=100, 
         temperature=0.4, 
         k=0, 
@@ -119,7 +119,11 @@ st.write('Select a question from the examples or ask your own using the search f
 
 # add the if statements to run the search function when the user clicks the buttons
 
-
+query = st.text_input('Ask a question about Co:here')
+if st.button('Search'):
+    results = search(query, 5, df, search_index, co)
+    display(query, results)
+    
 # add a button to search for a specific question
 if st.button('What can I build with the classify endpoint?'):
     query = 'What can I build with the classify endpoint?'
@@ -133,8 +137,6 @@ if st.button('How do I use Cohere to build a chatbot?'):
 if st.button('How do I use Cohere to build a search engine?'):
     query = 'How do I use Cohere to build a search engine?'
 # when the user clicks search, run the search function
-if st.button('Search'):
-    query = st.text_input('Ask a question about Co:here')
             
 results = search(query, 5, df, search_index, co)
 display(query, results)
