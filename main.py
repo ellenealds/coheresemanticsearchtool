@@ -48,6 +48,9 @@ def search(query, n_results, df, search_index, co):
     df['nearest_neighbors'] = nearest_neighbors[0]
     df = df.sort_values(by='similarity', ascending=False)
     return df
+# use threadpool executor, and concurrent modules to run the generation in parallel
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import concurrent.futures
 
 # define a function to generate an answer
 def gen_answer(q, para): 
@@ -97,8 +100,10 @@ if st.button('Search'):
     # filter the dataframe to only include the selected type
     results = search(query, 5, df, search_index, co)
 
-    # for each row in the dataframe, generate an answer
-    results['answer'] = results.apply(lambda x: gen_answer(query, x['text']), axis=1)
+    # for each row in the dataframe, generate an answer concurrently
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        results['answer'] = list(executor.map(gen_answer, [query]*len(results), results['text']))
+    #results['answer'] = results.apply(lambda x: gen_answer(query, x['text']), axis=1)
     answers = results['answer'].tolist()
     # run the function to generate a better answer
     answ = gen_better_answer(query, answers)

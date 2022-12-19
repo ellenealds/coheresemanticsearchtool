@@ -3,3 +3,4 @@ pandas
 annoy
 openpyxl
 cohere
+concurrent
