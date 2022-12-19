@@ -100,7 +100,7 @@ def display(query, results):
     # display the results
     for i, row in results.iterrows():
         # display the 'Category' outlined and coloured in purple
-        st.markdown(f'**{row["Category"]}**')
+        st.markdown(f'**{row["Type"]}">"{row["Category"]}**')
         st.markdown(f'{row["title"]}')
         # display the url as a hyperlink and add a button to open the url in a new tab
         st.markdown(f'[{row["link"]}]({row["link"]})')
