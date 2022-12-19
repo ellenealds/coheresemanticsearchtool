@@ -123,18 +123,18 @@ st.write('Select a question from the examples or ask your own using the search f
 # add a button to search for a specific question
 if st.button('What can I build with the classify endpoint?'):
     query = 'What can I build with the classify endpoint?'
-else:
-    if st.button('How do I use Cohere?'):
-        query = 'How do I use Cohere?'
-    else:
-        if st.button('How do I use Cohere to build a chatbot?'):
-            query = 'How do I use Cohere to build a chatbot?'
-        else:
-            if st.button('How do I use Cohere to build a search engine?'):
-                query = 'How do I use Cohere to build a search engine?'
-                # when the user clicks search, run the search function
-                if st.button('Search'):
-                    query = st.text_input('Ask a question about Co:here')
+
+if st.button('How do I use Cohere?'):
+    query = 'How do I use Cohere?'
+
+if st.button('How do I use Cohere to build a chatbot?'):
+    query = 'How do I use Cohere to build a chatbot?'
+
+if st.button('How do I use Cohere to build a search engine?'):
+    query = 'How do I use Cohere to build a search engine?'
+# when the user clicks search, run the search function
+if st.button('Search'):
+    query = st.text_input('Ask a question about Co:here')
             
 results = search(query, 5, df, search_index, co)
 display(query, results)
