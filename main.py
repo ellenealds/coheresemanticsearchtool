@@ -15,7 +15,7 @@ def load_data():
     df = pd.read_excel('cohere_docs_embeddings.xlsx')
     return df
 
-df = load_data()
+#df = load_data()
 
 @st.cache
 def embed(df):
