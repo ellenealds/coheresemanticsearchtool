@@ -114,7 +114,7 @@ if st.button('Search'):
     for i, row in results.iterrows():
         st.markdown(f'**{row["title"]}**')
         # display the url as a hyperlink and add a button to open the url in a new tab
-        st.markdown(f'[{row["url"]}]({row["url"]})')
+        st.markdown(f'[{row["link"]}]({row["link"]})')
         st.write(row['answer'])
         # collapse the text
         with st.expander('Read more'):
