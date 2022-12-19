@@ -80,6 +80,5 @@ if st.button('Search'):
 
     # display the results
     for i, row in results.iterrows():
-        st.write(row['search_bar'])
         st.write(row['answer'])
         st.write(row['text'])
