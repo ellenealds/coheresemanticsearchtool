@@ -110,10 +110,12 @@ def card(category, title, text, link):
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
                 {text}
-                </div>
+                <a href="{link}">Link</a>
+            </div>
             </div>
         </div>
     </div>
+    
     """, unsafe_allow_html=True)
             
                         
