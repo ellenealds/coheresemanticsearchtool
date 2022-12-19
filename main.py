@@ -117,30 +117,27 @@ st.subheader("A semantic search tool built for the Co:here community")
 st.write("This tool uses the Co:here API to search through the Co:here knowledge base and generate answers to questions. It uses the Co:here embed endpoint to find relevant documents, and the Co:here generate endpoint to generate answers to questions.")
 st.write('Select a question from the examples or ask your own using the search function.')
 
+# add the if statements to run the search function when the user clicks the buttons
+
+
 # add a button to search for a specific question
 if st.button('What can I build with the classify endpoint?'):
     query = 'What can I build with the classify endpoint?'
-    results = search(query, 5, df, search_index, co)
-    display(query, results)
+else:
+    if st.button('How do I use Cohere?'):
+        query = 'How do I use Cohere?'
+    else:
+        if st.button('How do I use Cohere to build a chatbot?'):
+            query = 'How do I use Cohere to build a chatbot?'
+        else:
+            if st.button('How do I use Cohere to build a search engine?'):
+                query = 'How do I use Cohere to build a search engine?'
+                # when the user clicks search, run the search function
+                if st.button('Search'):
+                    query = st.text_input('Ask a question about Co:here')
+            
+results = search(query, 5, df, search_index, co)
+display(query, results)
 
-if st.button('How do I use Cohere?'):
-    query = 'How do I use Cohere?'
-    results = search(query, 5, df, search_index, co)
-    display(query, results)
-
-if st.button('How do I use Cohere to build a chatbot?'):
-    query = 'How do I use Cohere to build a chatbot?'
-    results = search(query, 5, df, search_index, co)
-    display(query, results)
-
-# add a search bar
-query = st.text_input('Ask a question about Co:here')
-
-# when the user clicks search, run the search function
-if st.button('Search'):
-    results = search(query, 5, df, search_index, co)
-    display(query, results)
-
-
-       
-       
+    
+    
