@@ -87,8 +87,10 @@ st.title('Cohere Doc Semantic Search Tool')
 # add a search bar
 query = st.text_input('Search for a document')
 
+types = df['type'].unique().tolist()
+
 # add a dropdown to select from the list of type from the df
-type = st.selectbox('Select a type', df['type'].unique())
+type = st.selectbox('Select a type', types)
 
 
 # when the user clicks search, run the search function
