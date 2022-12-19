@@ -100,9 +100,8 @@ def card(category, text, link):
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">{category}</h5>
-            # collapse the text
-            <div class="collapse" id="collapseExample">
-                <div class="card card-body">
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
                     {text}
                 </div>
             </div>
