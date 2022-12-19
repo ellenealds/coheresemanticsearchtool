@@ -2,5 +2,4 @@ streamlit
 pandas
 annoy
 openpyxl
-cohere
-time
+coheree
