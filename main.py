@@ -70,8 +70,8 @@ st.title('Cohere Doc Semantic Search Tool')
 # add a search bar
 search_bar = st.text_input('Search for a document')
 
-# when the user hits enter, run the search function, the results will be used in the next step
-if search_bar:
+# when the user clicks search, run the search function
+if st.button('Search'):
     results = search(search_bar, 5, df, search_index, co)
 
     # for each row in the dataframe, generate an answer
