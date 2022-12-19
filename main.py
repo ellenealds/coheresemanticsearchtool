@@ -108,7 +108,7 @@ if st.button('Search'):
     st.subheader("Relevant documents")
     # display the results
     for i, row in results.iterrows():
-        st.write(row['type'])
+        st.write(row['Type'])
         st.markdown(row['link'], unsafe_allow_html=True)
         st.write(row['category'])
         st.write(row['title'])
