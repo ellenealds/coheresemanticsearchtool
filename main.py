@@ -89,19 +89,25 @@ st.title('Co:ask')
 # add a subtitle
 st.subheader('A semantic search tool built for the Co:here community')
 
+# add a smaller text
+st.write('This tool uses the Co:here API to search through the Co:here knowledge base and generate answers to questions. It uses the Co:here embed endpoint to find relevant documents, and the Co:here generate endpoint to generate answers to questions.')
+st.write('Select a question from the examples or ask your own using the search function.')
+
+# add a button to search for a specific question
+if st.button('What can I build with the classify endpoint?'):
+    query = 'What can I build with the classify endpoint?'
+    results = search(query, 5, df, search_index, co)
+
+if st.button('ow do I use Cohere?'):
+    query = 'How do I use Cohere?'
+    results = search(query, 5, df, search_index, co)
+
+if st.button('How do I use Cohere to build a chatbot?'):
+    query = 'How do I use Cohere to build a chatbot?'
+    results = search(query, 5, df, search_index, co)
+
 # add a search bar
 query = st.text_input('Ask a question about Co:here')
-
-# provide some examples for the user to select from
-# when they click on the button, the text in the search bar will be replaced with the example
-if st.button('Example 1'):
-    query = 'What is Cohere?'
-
-if st.button('Example 2'):
-    query = 'How do I use Cohere?'
-
-if st.button('Example 3'):
-    query = 'How do I use Cohere to build a chatbot?'
 
 # when the user clicks search, run the search function
 if st.button('Search'):
