@@ -109,12 +109,12 @@ def display(query, results):
         st.write('')
 
 # add a title to the app
-st.title("Co:ask")
+st.title("Co ask")
 # add a subtitle
-st.subheader("A semantic search tool built for the Co:here community")
+st.subheader("A semantic search tool built for the Co here community")
 
 # add a smaller text
-st.write("This tool uses the Co:here API to search through the Co:here knowledge base and generate answers to questions. It uses the Co:here embed endpoint to find relevant documents, and the Co:here generate endpoint to generate answers to questions.")
+st.write("This tool uses the Cohere API to search through the Cohere knowledge base and generate answers to questions. It uses the Cohere embed endpoint to find relevant documents, and the Cohere generate endpoint to generate answers to questions.")
 st.write('Select a question from the examples or ask your own using the search function.')
 
 # add the if statements to run the search function when the user clicks the buttons
