@@ -61,5 +61,28 @@ if st.button('Search'):
     # do the search
     results = search(search_bar, 5, df, search_index, co)
     # display the results
-    for i, row in results.iterrows():
-        st.write(row['text'])
+    '''for i, row in results.iterrows():
+        st.write(row['text'])'''
+
+def gen_answer(q, para): 
+    response = co.generate( 
+        model='command-xlarge-20221108', 
+        prompt=f'Paragraph:{para}\n\nAnswer the question using this paragraph.\n\nQuestion: {q}\nAnswer:', 
+        max_tokens=100, 
+        temperature=0.4, 
+        k=0, 
+        p=0.75, 
+        frequency_penalty=0, 
+        presence_penalty=0, 
+        stop_sequences=[], 
+        return_likelihoods='NONE') 
+    return response.generations[0].text
+
+# for each row in the dataframe, generate an answer
+results['answer'] = results.apply(lambda x: gen_answer('What are usage examples for the generate endpoint?', x['text']), axis=1)
+
+# display the results
+for i, row in results.iterrows():
+    st.write(row['search_bar'])
+    st.write(row['answer'])
+    st.write(row['text'])
