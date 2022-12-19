@@ -4,34 +4,20 @@ import cohere
 import time
 co = cohere.Client('bE6Is3wvtmXyHtgnCQocDIgdH7PcYwdR21ZhnXgN') 
 
-def embeddings(texts): 
-  response = co.embed(
-    model='large',
-    texts=list(texts), 
-    truncate='LEFT').embeddings
-  return response
+def embeddings(texts,sleep_time=5):
+    # add a wait time to simulate a long running process
+    time.sleep(sleep_time)
+    response = co.embed(
+        model='large',
+        texts=list(texts), 
+        truncate='LEFT').embeddings
+    return response
 
 df = pd.read_excel('cohere_docs_embeddings.xlsx')
 
 @st.cache
 def load_data(df):
-    # for each paragraph get the embeddings but wait 2 seconds betwen each loop
-    embeddings_list = []
-    counter = 0
-    row_count = len(df)
-    for index, row in df.iterrows():
-        embeddings_list.append(embeddings([row['text']]))
-        counter += 1
-        # add an if statement to wait 1 minute for each 90 rows
-        if counter % 90 == 0:
-            time.sleep(60)
-        else:
-            pass
-        print(f'Finished {counter} of {row_count}')
-    # create a dataframe of the embeddings
-    embeddings_df = pd.DataFrame(embeddings_list)
-    # append the embeddings to the text_df
-    df = pd.concat([df, embeddings_df], axis=1)
+    df['embeddings'] = embeddings(df['text'])
     return df
 
 df = load_data(df)
