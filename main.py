@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import cohere
+import time
 co = cohere.Client('bE6Is3wvtmXyHtgnCQocDIgdH7PcYwdR21ZhnXgN') 
 
 def embeddings(texts,sleep_time=5):
