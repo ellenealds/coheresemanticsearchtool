@@ -127,11 +127,11 @@ if st.button('Search'):
     display(query, results)
     
 # add a button to search for a specific question
-if st.button('What can I build with the classify endpoint?'):
-    query = 'What can I build with the classify endpoint?'
+if st.button('How can I build a text summariser?'):
+    query = 'How can I build a text summariser?'
 
-if st.button('How do I use Cohere?'):
-    query = 'How do I use Cohere?'
+if st.button('How can I build a classifier?'):
+    query = 'How can I build a classifier?'
 
 if st.button('How do I use Cohere to build a chatbot?'):
     query = 'How do I use Cohere to build a chatbot?'
