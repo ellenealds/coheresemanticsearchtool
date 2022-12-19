@@ -39,11 +39,6 @@ def search(query, n_results, df, search_index, co):
     query_embed = co.embed(texts=[query],
                     model="large",
                     truncate="LEFT").embeddings
-    # check the index of the dataframe and filter the search index to only include the index of the dataframe
-    search_index.unbuild()
-    search_index.load('search_index.ann')
-    search_index.set_index_params(df.index.tolist())
-    search_index.build(10)
     
     # Get the nearest neighbors and similarity score for the query and the embeddings, append it to the dataframe
     nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
@@ -95,15 +90,13 @@ st.title('Cohere Doc Semantic Search Tool')
 # add a search bar
 query = st.text_input('Search for a document')
 
-types = ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation']
+#types = ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation']
 # multiple select box to select the type of document
-type = st.selectbox('Select the type of document', types)
+#type = st.selectbox('Select the type of document', types)
 
 
 # when the user clicks search, run the search function
 if st.button('Search'):
-    # filter the dataframe to only include the multiple selected types
-    df = df[df['Type'].isin(type)]
     results = search(query, 5, df, search_index, co)
 
     # for each row in the dataframe, generate an answer concurrently
@@ -119,6 +112,11 @@ if st.button('Search'):
     st.subheader("Relevant documents")
     # display the results
     for i, row in results.iterrows():
-        card(row['Type'], row['text'], row['link'])
+        st.markdown(f'**{row["title"]}**')
+        st.write(row['answer'])
+        # collapse the text
+        with st.expander('Show more'):
+            st.write(row['text'])
+        st.write('')
        
        
