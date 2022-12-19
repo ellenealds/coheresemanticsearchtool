@@ -77,7 +77,7 @@ def gen_better_answer(ques, ans):
         p=0.75, 
         frequency_penalty=0, 
         presence_penalty=0, 
-        stop_sequences=["."], 
+        stop_sequences=[], 
         return_likelihoods='NONE')
         #num_generations=5) 
     return response.generations[0].text
