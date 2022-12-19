@@ -70,7 +70,7 @@ def gen_answer(q, para):
 def gen_better_answer(ques, ans): 
     response = co.generate( 
         model='command-xlarge-20221108', 
-        prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a new answer that uses all the answers, makes reference to the question and provides context.', 
+        prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a new answer that uses all the answers and makes reference to the question.', 
         max_tokens=100, 
         temperature=0.4, 
         k=0, 
@@ -113,7 +113,7 @@ def display(query, results):
 # add a title to the app
 st.title("Co ask")
 # add a subtitle
-st.subheader("A semantic search tool built for the Co here community")
+st.subheader("A semantic search tool built for the Cohere community")
 
 # add a smaller text
 st.write("This tool uses the Cohere API to search through the Cohere knowledge base and generate answers to questions. It uses the Cohere embed endpoint to find relevant documents, and the Cohere generate endpoint to generate answers to questions.")
@@ -123,7 +123,7 @@ st.write('Select a question from the examples or ask your own using the search f
 
 query = st.text_input('Ask a question about Co:here')
 if st.button('Search'):
-    results = search(query, 5, df, search_index, co)
+    results = search(query, 7, df, search_index, co)
     display(query, results)
     
 # add a button to search for a specific question
@@ -140,7 +140,7 @@ if st.button('How do I use Cohere to build a search engine?'):
     query = 'How do I use Cohere to build a search engine?'
 # when the user clicks search, run the search function
             
-results = search(query, 5, df, search_index, co)
+results = search(query, 7, df, search_index, co)
 display(query, results)
 
     
