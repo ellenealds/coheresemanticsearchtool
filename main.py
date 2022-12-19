@@ -49,17 +49,6 @@ def search(query, n_results, df, search_index, co):
     df = df.sort_values(by='similarity', ascending=False)
     return df
 
-# add a title to the app
-st.title('Cohere Doc Semantic Search Tool')
-
-# add a search bar
-search_bar = st.text_input('Search for a document')
-
-# when the user hits enter, run the search function, the results will be used in the next step
-if search_bar:
-    results = search(search_bar, 5, df, search_index, co)
-    
-
 # define a function to generate an answer
 def gen_answer(q, para): 
     response = co.generate( 
@@ -75,11 +64,21 @@ def gen_answer(q, para):
         return_likelihoods='NONE') 
     return response.generations[0].text
 
-# for each row in the dataframe, generate an answer
-results['answer'] = results.apply(lambda x: gen_answer('What are usage examples for the generate endpoint?', x['text']), axis=1)
+# add a title to the app
+st.title('Cohere Doc Semantic Search Tool')
 
-# display the results
-for i, row in results.iterrows():
-    st.write(row['search_bar'])
-    st.write(row['answer'])
-    st.write(row['text'])
+# add a search bar
+search_bar = st.text_input('Search for a document')
+
+# when the user hits enter, run the search function, the results will be used in the next step
+if search_bar:
+    results = search(search_bar, 5, df, search_index, co)
+
+    # for each row in the dataframe, generate an answer
+    results['answer'] = results.apply(lambda x: gen_answer('What are usage examples for the generate endpoint?', x['text']), axis=1)
+
+    # display the results
+    for i, row in results.iterrows():
+        st.write(row['search_bar'])
+        st.write(row['answer'])
+        st.write(row['text'])
