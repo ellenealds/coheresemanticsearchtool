@@ -4,3 +4,4 @@ annoy
 openpyxl
 cohere
 time
+pip
