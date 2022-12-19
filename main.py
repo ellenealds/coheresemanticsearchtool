@@ -42,6 +42,8 @@ def search(query, n_results, df, search_index, co):
 
     # Get the nearest neighbors and similarity scores
     neighbors, scores = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
+    # scores is the 'similarity score' between the query and the results, add this to the dataframe
+    df['similarity_score'] = scores
     # Return the results and sort by similarity score
     return df.iloc[neighbors].sort_values(by='similarity_score', ascending=False)
 
