@@ -55,13 +55,12 @@ st.title('Cohere Doc Semantic Search Tool')
 # add a search bar
 search_bar = st.text_input('Search for a document')
 
-# add a button to trigger the search
+# when the user hits enter, run the search function
+if st.button('Search'):
+    results = search(search_bar, 5, df, search_index, co)
+    #st.write(results)
 
-#if st.button('Search'):
-    # do the search
-results = search(search_bar, 5, df, search_index, co)
-   
-
+# define a function to generate an answer
 def gen_answer(q, para): 
     response = co.generate( 
         model='command-xlarge-20221108', 
