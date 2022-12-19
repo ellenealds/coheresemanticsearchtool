@@ -64,6 +64,23 @@ def gen_answer(q, para):
         return_likelihoods='NONE') 
     return response.generations[0].text
 
+def gen_better_answer(ques, ans): 
+    response = co.generate( 
+        model='command-xlarge-20221108', 
+        prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a new answer that uses all the answers and provides additonal information.', 
+        max_tokens=100, 
+        temperature=0.4, 
+        k=0, 
+        p=0.75, 
+        frequency_penalty=0, 
+        presence_penalty=0, 
+        stop_sequences=[], 
+        return_likelihoods='NONE')
+        #num_generations=5) 
+    return response.generations[0].text
+
+
+
 # add a title to the app
 st.title('Cohere Doc Semantic Search Tool')
 
@@ -77,10 +94,15 @@ if st.button('Search'):
 
     # for each row in the dataframe, generate an answer
     results['answer'] = results.apply(lambda x: gen_answer(query, x['text']), axis=1)
+    answers = results['answer'].tolist()
+    # run the function to generate a better answer
+    answ = gen_better_answer(query, answers)
+
 
     # display the results
     for i, row in results.iterrows():
         st.write(query)
+        st.write(answ)
         st.write(row['answer'])
         # add a collapsible section to display the text
         with st.expander('Show text'):
