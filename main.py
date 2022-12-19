@@ -70,7 +70,7 @@ def gen_answer(q, para):
 def gen_better_answer(ques, ans): 
     response = co.generate( 
         model='command-xlarge-20221108', 
-        prompt=f'This tool generates a more contextual answer to the question.\n\nAnswers:{ans}\n\nQuestion: {ques}\n\nGenerate a precise new answer that uses the best answers and makes reference to the question.', 
+        prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a precise new answer that uses the best answers and makes reference to the question.', 
         max_tokens=100, 
         temperature=0.4, 
         k=0, 
@@ -100,7 +100,8 @@ def display(query, results):
     # display the results
     for i, row in results.iterrows():
         # display the 'Category' outlined and coloured in purple
-        st.markdown(f'**{row["Type"]}">"{row["Category"]}**')
+        st.markdown(f'**{row["Type"]}**')
+        st.markdown(f'**{row["Category"]}**')
         st.markdown(f'{row["title"]}')
         # display the url as a hyperlink and add a button to open the url in a new tab
         st.markdown(f'[{row["link"]}]({row["link"]})')
