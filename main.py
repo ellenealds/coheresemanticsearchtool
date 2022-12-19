@@ -102,7 +102,7 @@ def card(title, text):
             <div class="card-header" id="headingOne">
             <h5 class="mb-0">
                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                {title}
+                Collapsible Group Item #1
                 </button>
             </h5>
             </div>
@@ -113,8 +113,8 @@ def card(title, text):
             </div>
             </div>
         </div>
-    </div>
     """, unsafe_allow_html=True)
+
 
             
 # create a variable called test that contains 1 row of the dataframe
