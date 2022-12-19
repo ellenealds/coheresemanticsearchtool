@@ -42,6 +42,8 @@ def search(query, n_results, df, search_index, co):
 
     # Get the nearest neighbors and similarity score for the query and the embeddings, append it to the dataframe
     nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
+    # filter the dataframe to only include the nearest neighbors using the index
+    df = df[df.index.isin(nearest_neighbors[0])]
     df['similarity'] = nearest_neighbors[1]
     df['nearest_neighbors'] = nearest_neighbors[0]
     df = df.sort_values(by='similarity', ascending=False)
