@@ -94,17 +94,22 @@ query = st.text_input('Search for a document')
 
 
 # add a card function that uses bootstrap to display the results
-def card(title, text, link):
+# I want the text to be collapsible
+def card(category, text, link):
     st.markdown(f"""
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{title}</h5>
-            <p class="card-text">{text}</p>
+            <h5 class="card-title">{category}</h5>
+            # collapse the text
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    {text}
+                </div>
+            </div>
             <a href="{link}" class="btn btn-primary">Go to link</a>
         </div>
     </div>
     """, unsafe_allow_html=True)
-
 
 # when the user clicks search, run the search function
 if st.button('Search'):
@@ -124,6 +129,6 @@ if st.button('Search'):
     st.subheader("Relevant documents")
     # display the results
     for i, row in results.iterrows():
-        card(row['title'], row['text'], row['link'])
+        card(row['Type'], row['text'], row['link'])
        
        
