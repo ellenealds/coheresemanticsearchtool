@@ -85,15 +85,23 @@ def gen_better_answer(ques, ans):
 
 
 # add a title to the app
-st.title('Cohere Doc Semantic Search Tool')
+st.title('Co:ask')
+# add a subtitle
+st.subheader('A semantic search tool built for the Co:here community')
 
 # add a search bar
-query = st.text_input('Search for a document')
+query = st.text_input('Ask a question about Co:here')
 
-#types = ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation']
-# multiple select box to select the type of document
-#type = st.selectbox('Select the type of document', types)
+# provide some examples for the user to select from
+# when they click on the button, the text in the search bar will be replaced with the example
+if st.button('Example 1'):
+    query = 'What is Cohere?'
 
+if st.button('Example 2'):
+    query = 'How do I use Cohere?'
+
+if st.button('Example 3'):
+    query = 'How do I use Cohere to build a chatbot?'
 
 # when the user clicks search, run the search function
 if st.button('Search'):
@@ -107,8 +115,11 @@ if st.button('Search'):
     # run the function to generate a better answer
     answ = gen_better_answer(query, answers)
     #st.write(query)
-    st.subheader("Cohere's answer")
+    st.subheader(query)
     st.write(answ)
+    # add a spacer
+    st.write('')
+    st.write('')
     st.subheader("Relevant documents")
     # display the results
     for i, row in results.iterrows():
