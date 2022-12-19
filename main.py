@@ -123,15 +123,15 @@ st.write('Select a question from the examples or ask your own using the search f
 
 query = st.text_input('Ask a question about Co:here')
 if st.button('Search'):
-    results = search(query, 7, df, search_index, co)
+    results = search(query, 5, df, search_index, co)
     display(query, results)
     
 # add a button to search for a specific question
 if st.button('How can I build a text summariser?'):
     query = 'How can I build a text summariser?'
 
-if st.button('How can I build a classifier?'):
-    query = 'How can I build a classifier?'
+if st.button('How can I build a sentiment classifier?'):
+    query = 'How can I build a sentiment classifier?'
 
 if st.button('How do I use Cohere to build a chatbot?'):
     query = 'How do I use Cohere to build a chatbot?'
@@ -140,7 +140,7 @@ if st.button('How do I use Cohere to build a search engine?'):
     query = 'How do I use Cohere to build a search engine?'
 # when the user clicks search, run the search function
             
-results = search(query, 7, df, search_index, co)
+results = search(query, 5, df, search_index, co)
 display(query, results)
 
     
