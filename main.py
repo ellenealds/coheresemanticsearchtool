@@ -35,58 +35,64 @@ def load_data(df,):
 df, search_index = load_data(df)
 
 def search(query, n_results, df, search_index, co):
-    # Get the query's embedding
-    query_embed = co.embed(texts=[query],
-                    model="large",
-                    truncate="LEFT").embeddings
-    
-    # Get the nearest neighbors and similarity score for the query and the embeddings, append it to the dataframe
-    nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
-    # filter the dataframe to only include the nearest neighbors using the index
-    df = df[df.index.isin(nearest_neighbors[0])]
-    df['similarity'] = nearest_neighbors[1]
-    df['nearest_neighbors'] = nearest_neighbors[0]
-    df = df.sort_values(by='similarity', ascending=False)
-    return df
+    with st.spinner('Finding relevant documents...'):
+
+        # Get the query's embedding
+        query_embed = co.embed(texts=[query],
+                        model="large",
+                        truncate="LEFT").embeddings
+        
+        # Get the nearest neighbors and similarity score for the query and the embeddings, append it to the dataframe
+        nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
+        # filter the dataframe to only include the nearest neighbors using the index
+        df = df[df.index.isin(nearest_neighbors[0])]
+        df['similarity'] = nearest_neighbors[1]
+        df['nearest_neighbors'] = nearest_neighbors[0]
+        df = df.sort_values(by='similarity', ascending=False)
+        return df
 # use threadpool executor, and concurrent modules to run the generation in parallel
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import concurrent.futures
 
 # define a function to generate an answer
 def gen_answer(q, para): 
-    if len(para.split()) > 1800:
-            # truncate the string
-            para = para[:1800]
-    else:
-        para = para
-    response = co.generate( 
-        model='command-xlarge-20221108', 
-        #if para contains more than 1900 tokens truncate it
-        prompt=f'Paragraph:{para}\n\nAnswer the question using this paragraph.\n\nQuestion: {q}\nAnswer:', 
-        max_tokens=100, 
-        temperature=0.4, 
-        k=0, 
-        p=0.75, 
-        frequency_penalty=0, 
-        presence_penalty=0, 
-        stop_sequences=[], 
-        return_likelihoods='NONE') 
-    return response.generations[0].text
+    with st.spinner('Generating your content...'):
+
+        
+        if len(para.split()) > 1800:
+                # truncate the string
+                para = para[:1800]
+        else:
+            para = para
+        response = co.generate( 
+            model='command-xlarge-20221108', 
+            #if para contains more than 1900 tokens truncate it
+            prompt=f'Paragraph:{para}\n\nAnswer the question using this paragraph.\n\nQuestion: {q}\nAnswer:', 
+            max_tokens=100, 
+            temperature=0.4, 
+            k=0, 
+            p=0.75, 
+            frequency_penalty=0, 
+            presence_penalty=0, 
+            stop_sequences=[], 
+            return_likelihoods='NONE') 
+        return response.generations[0].text
 
 def gen_better_answer(ques, ans): 
-    response = co.generate( 
-        model='command-xlarge-20221108', 
-        prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a new answer that uses the best answers and makes reference to the question.', 
-        max_tokens=100, 
-        temperature=0.4, 
-        k=0, 
-        p=0.75, 
-        frequency_penalty=0, 
-        presence_penalty=0, 
-        stop_sequences=[], 
-        return_likelihoods='NONE')
-        #num_generations=5) 
-    return response.generations[0].text
+    with st.spinner('Finding the best answer...'):
+        response = co.generate( 
+            model='command-xlarge-20221108', 
+            prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a new answer that uses the best answers and makes reference to the question.', 
+            max_tokens=100, 
+            temperature=0.4, 
+            k=0, 
+            p=0.75, 
+            frequency_penalty=0, 
+            presence_penalty=0, 
+            stop_sequences=[], 
+            return_likelihoods='NONE')
+            #num_generations=5) 
+        return response.generations[0].text
 
 def display(query, results):
     # for each row in the dataframe, generate an answer concurrently
@@ -117,11 +123,19 @@ def display(query, results):
         # collapse the text
         with st.expander('View page'):
             st.markdown(f'[{row["link"]}]({row["link"]})')
+            st.markdown(f'<a href="{row["link"]}" target="_blank">Open in new tab</a>', unsafe_allow_html=True)
             # add an iframe for the link
             st.markdown(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
+            st.write('')
             # the markdown link doesnt work in the iframe, so add a button to open the link in a new tab
-            st.markdown(f'<a href="{row["link"]}" target="_blank">Open in new tab</a>', unsafe_allow_html=True)
-        st.write('')
+
+# add a function that lets the user know that the search is running
+def run_search(query, n_results, df, search_index, co):
+    with st.spinner('Searching...'):
+        results = search(query, n_results, df, search_index, co)
+    return results
+         
+        
 
 # add an image to the top of the page, the image is 'beach.png'
 st.image('beach.png', width=700)
