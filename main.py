@@ -163,7 +163,7 @@ with col2:
 
     
 with col3:
-    if st.button('What is the generate model?          '):
+    if st.button('What is the generate model?', height=100, width=100):
         query = 'What is the generate model?'
         results = search(query, 4, df, search_index, co)
 
