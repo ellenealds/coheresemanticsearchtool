@@ -89,8 +89,8 @@ def display(query, results):
     #results['answer'] = results.apply(lambda x: gen_answer(query, x['text']), axis=1)
     answers = results['answer'].tolist()
     # if the combination of answers contains more than 2000 tokens, then truncate the list
-    if len(' '.join(answers).split()) > 1900:
-        answers = answers[:1900]
+    if len(' '.join(answers).split()) > 1800:
+        answers = answers[:1800]
     # run the function to generate a better answer
     answ = gen_better_answer(query, answers)
     #st.write(query)
