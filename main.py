@@ -128,23 +128,30 @@ query = st.text_input('Ask a question about Co:here')
 if st.button('Search'):
     results = search(query, 5, df, search_index, co)
     display(query, results)
+
+# add three columns to display the buttons
+col1, col2, col3 = st.beta_columns(3)
+
+with col1:
+    # add a button to search for a specific question
+    if st.button('How can I build a text summariser?'):
+        query = 'How can I build a text summariser?'
+        results = search(query, 5, df, search_index, co)
+        display(query, results)
+with col2:
+
+    if st.button('How can I build a sentiment classifier?'):
+        query = 'How can I build a sentiment classifier?'
+        results = search(query, 5, df, search_index, co)
+        display(query, results)
     
-# add a button to search for a specific question
-if st.button('How can I build a text summariser?'):
-    query = 'How can I build a text summariser?'
+with col3:
+    if st.button('How can I build a text generator?'):
+        query = 'How can I build a text generator?'
+        results = search(query, 5, df, search_index, co)
+        display(query, results)
 
-if st.button('How can I build a sentiment classifier?'):
-    query = 'How can I build a sentiment classifier?'
 
-if st.button('How do I use Cohere to build a chatbot?'):
-    query = 'How do I use Cohere to build a chatbot?'
-
-if st.button('How do I use Cohere to build a search engine?'):
-    query = 'How do I use Cohere to build a search engine?'
-# when the user clicks search, run the search function
-            
-results = search(query, 5, df, search_index, co)
-display(query, results)
 
     
     
