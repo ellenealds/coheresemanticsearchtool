@@ -150,8 +150,9 @@ with col3:
         query = 'How can I build a text generator?'
         results = search(query, 5, df, search_index, co)
 
+if query != '':
+    display(query, results)
 
-display(query, results)
 
     
     
