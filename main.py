@@ -191,10 +191,10 @@ if choice == "Cofinder":
 if choice == "Project Inspiration":
     project_query = st.text_input('Search for a project inspiration')
 
-# Blog, Video, Hackathon Examples, User Documentation, Product Documentation
-# add a multi-select box to select the categories to search
-categories = st.multiselect('Select categories to search', ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation'])
-# if the user selects search, then run the search function
-if st.button('Search'):
-    results = search_project(project_query, 4, df, search_index, co, categories)
-    display(project_query, results)
+    # Blog, Video, Hackathon Examples, User Documentation, Product Documentation
+    # add a multi-select box to select the categories to search
+    categories = st.multiselect('Select categories to search', ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation'])
+    # if the user selects search, then run the search function
+    if st.button('Search'):
+        results = search_project(project_query, 4, df, search_index, co, categories)
+        display(project_query, results)
