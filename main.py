@@ -139,41 +139,31 @@ with st.expander('About'):
     st.write("This tool uses the Cohere API to search through the Cohere knowledge base and generate answers to questions. It uses the Cohere embed endpoint to find relevant documents, and the Cohere generate endpoint to generate answers to questions.")
     st.write('Select a question from the examples or ask your own using the search function.')
 
-# add the if statements to run the search function when the user clicks the buttons
+# add tabs to the page
+tabs = ["Cofinder", "Project Inspiration"]
+choice = st.sidebar.radio("Menu", tabs)
 
-query = st.text_input('Ask Cofinder a question')
-if st.button('Search'):
-    results = search(query, 4, df, search_index, co)
-    
-
-# add three columns to display the buttons
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    # add a button to search for a specific question
-    if st.button('How can I build a chatbot with Cohere?'):
-        query = 'How can I build a chatbot with Cohere?'
+if choice == "Cofinder":
+    # add the if statements to run the search function when the user clicks the buttons
+    query = st.text_input('Ask Cofinder a question')
+    if st.button('Search'):
         results = search(query, 4, df, search_index, co)
-
-with col2:
-
-    if st.button('How can I build a sentiment classifier?'):
-        query = 'How can I build a sentiment classifier?'
-        results = search(query, 4, df, search_index, co)
-
-    
-with col3:
-    if st.button(f'What is the Cohere generate model?\n\n'):
-        query = 'What is the generate model?'
-        results = search(query, 4, df, search_index, co)
-
-if query != '':
-    display(query, results)
-
-else:
-    st.write('')
-
-
-
-    
-    
+    # add three columns to display the buttons
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        # add a button to search for a specific question
+        if st.button('How can I build a chatbot with Cohere?'):
+            query = 'How can I build a chatbot with Cohere?'
+            results = search(query, 4, df, search_index, co)
+    with col2:
+        if st.button('How can I build a sentiment classifier?'):
+            query = 'How can I build a sentiment classifier?'
+            results = search(query, 4, df, search_index, co)
+    with col3:
+        if st.button('How can I build a text classifier?'):
+            query = 'How can I build a text classifier?'
+            results = search(query, 4, df, search_index, co)
+    # if search is empty, do nothing
+    if not results.empty:
+        # display the results
+        display(query, results)
