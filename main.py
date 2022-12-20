@@ -169,8 +169,8 @@ def display(query, results):
                 # display the iframe
                 st.write(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
         with st.expander('View similar documents'):
-            similar_docs = get_similar_docs(row['nearest_neighbors'], df, search_index, co)
-            # display the similar documents Type, title, url as a link called 'View page' in a table
+            # get the nearest neighbors for the document
+            similar_docs = search_index.get_nns_by_item(row['nearest_neighbors'], 5, include_distances=True)
             st.table(similar_docs[['Type', 'Category', 'title', 'link']])
 
 
