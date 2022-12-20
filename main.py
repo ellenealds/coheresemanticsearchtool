@@ -126,10 +126,6 @@ def display(query, results):
             st.markdown(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
             st.write('')
             # the markdown link doesnt work in the iframe, so add a button to open the link in a new tab
-
-# add a function that lets the user know that the search is running
-
-         
         
 
 # add an image to the top of the page, the image is 'beach.png'
@@ -167,7 +163,7 @@ with col2:
 
     
 with col3:
-    if st.button('What is the generate model?'):
+    if st.button('What is the generate model?          '):
         query = 'What is the generate model?'
         results = search(query, 4, df, search_index, co)
 
