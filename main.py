@@ -111,8 +111,8 @@ def display(query, results):
             st.write(row['text'])
         st.write('')
 
-# add an image to the top of the page, the image is 'IMG_3081.jpg'
-st.image('IMG_3081.jpg', use_column_width=True)
+# add an image to the top of the page, the image is 'beach.png'
+st.image('cohere.png', width=500)
 # add a subtitle
 st.subheader("A semantic search tool built for the Cohere community")
 
