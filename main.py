@@ -130,7 +130,7 @@ if st.button('Search'):
     display(query, results)
 
 # add three columns to display the buttons
-col1, col2, col3 = st.beta_columns(3)
+col1, col2, col3 = st.columns(3)
 
 with col1:
     # add a button to search for a specific question
