@@ -169,13 +169,9 @@ def display(query, results):
                 # display the iframe
                 st.write(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
         with st.expander('View similar documents'):
-            # run the get_similar_docs function to get the similar documents to this document
-            # paramerters get_similar_docs(index_id, df, search_index, co):
-            # when the user selects ' get similar documents' run the function to get the similar documents
-            if st.button('Get similar documents'):
-                similar_docs = get_similar_docs(row['nearest_neighbors'], df, search_index, co)
-                # display the similar documents Type, title, url as a link called 'View page' in a table
-                st.table(similar_docs[['Type', 'Category', 'title', 'link']])
+            similar_docs = get_similar_docs(row['nearest_neighbors'], df, search_index, co)
+            # display the similar documents Type, title, url as a link called 'View page' in a table
+            st.table(similar_docs[['Type', 'Category', 'title', 'link']])
 
 
 
