@@ -148,7 +148,7 @@ def display(query, results):
             # if the link is a youtube video, then add the media player
             if 'youtube' in row['link']:
                 # display the media player
-                st.markdown(f'<iframe width="700" height="400" src="{row["link"]}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', unsafe_allow_html=True)
+                st.video(row["link"])
             else:
                 #some urls don't allow the connection to be made, so add a try except block
                 try:
