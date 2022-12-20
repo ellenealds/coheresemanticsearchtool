@@ -35,7 +35,7 @@ def load_data(df,):
 df, search_index = load_data(df)
 
 def search(query, n_results, df, search_index, co):
-    with st.spinner('Finding relevant documents...'):
+    with st.spinner('Cofinding relevant documents...'):
 
         # Get the query's embedding
         query_embed = co.embed(texts=[query],
@@ -55,15 +55,13 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import concurrent.futures
 
 # define a function to generate an answer
-def gen_answer(q, para): 
-    with st.spinner('Generating your content...'):
-
-        
-        if len(para.split()) > 1800:
-                # truncate the string
-                para = para[:1800]
-        else:
-            para = para
+def gen_answer(q, para):  
+    if len(para.split()) > 1800:
+            # truncate the string
+            para = para[:1800]
+    else:
+        para = para
+    with st.spinner('Cofinding answers...'):
         response = co.generate( 
             model='command-xlarge-20221108', 
             #if para contains more than 1900 tokens truncate it
@@ -79,7 +77,7 @@ def gen_answer(q, para):
         return response.generations[0].text
 
 def gen_better_answer(ques, ans): 
-    with st.spinner('Finding the best answer...'):
+    with st.spinner('Cofinding the best answer...'):
         response = co.generate( 
             model='command-xlarge-20221108', 
             prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a new answer that uses the best answers and makes reference to the question.', 
@@ -130,10 +128,7 @@ def display(query, results):
             # the markdown link doesnt work in the iframe, so add a button to open the link in a new tab
 
 # add a function that lets the user know that the search is running
-def run_search(query, n_results, df, search_index, co):
-    with st.spinner('Searching...'):
-        results = search(query, n_results, df, search_index, co)
-    return results
+
          
         
 
