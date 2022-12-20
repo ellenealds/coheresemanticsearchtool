@@ -119,6 +119,8 @@ def display(query, results):
             st.markdown(f'[{row["link"]}]({row["link"]})')
             # add an iframe for the link
             st.markdown(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
+            # the markdown link doesnt work in the iframe, so add a button to open the link in a new tab
+            st.markdown(f'<a href="{row["link"]}" target="_blank">Open in new tab</a>', unsafe_allow_html=True)
         st.write('')
 
 # add an image to the top of the page, the image is 'beach.png'
@@ -134,7 +136,7 @@ with st.expander('About'):
 
 # add the if statements to run the search function when the user clicks the buttons
 
-query = st.text_input('Ask a question about Co:here')
+query = st.text_input('Ask Cofinder a question')
 if st.button('Search'):
     results = search(query, 4, df, search_index, co)
     
