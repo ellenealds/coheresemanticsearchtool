@@ -150,16 +150,9 @@ def display(query, results):
                 # display the media player
                 st.video(row["link"])
             else:
-                #some urls don't allow the connection to be made, so add a try except block
-                try:
-                    # display the iframe
-                    st.markdown(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
-                except:
-                    st.write('This page cannot be displayed, use the link to view the page.')
-                    # provide a link to the page
-                    st.markdown(f'[{row["link"]}]({row["link"]})')
-                    # add df text
-                    st.write(row['text'])
+                # display the iframe
+                st.write(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
+
             st.write('')      
 
 # add an image to the top of the page, the image is 'beach.png'
