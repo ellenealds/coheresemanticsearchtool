@@ -187,8 +187,8 @@ if choice == "Cofinder":
             query = 'How can I build a sentiment classifier?'
             results = search(query, 4, df, search_index, co)
     with col3:
-        if st.button('How can I build a text classifier?'):
-            query = 'How can I build a text classifier?'
+        if st.button('What applications can I build with Cohere endpoints?'):
+            query = 'What applications can I build with Cohere endpoints?'
             results = search(query, 4, df, search_index, co)
     # if search is empty, do nothing
     if query != '':
