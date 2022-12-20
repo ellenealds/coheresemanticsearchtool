@@ -140,7 +140,11 @@ with st.expander('About'):
     st.write('Select a question from the examples or ask your own using the search function.')
 
 # add the if statements to run the search function when the user clicks the buttons
-   
+
+query = st.text_input('Ask Cofinder a question')
+if st.button('Search'):
+    results = search(query, 4, df, search_index, co)
+    
 
 # add three columns to display the buttons
 col1, col2, col3 = st.columns(3)
@@ -162,10 +166,6 @@ with col3:
     if st.button(f'What is the Cohere generate model?\n\n'):
         query = 'What is the generate model?'
         results = search(query, 4, df, search_index, co)
-
-query = st.text_input('Ask Cofinder a question')
-if st.button('Search'):
-    results = search(query, 4, df, search_index, co)
 
 if query != '':
     display(query, results)
