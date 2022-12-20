@@ -87,7 +87,7 @@ def gen_answer(q, para):
         response = co.generate( 
             model='command-xlarge-20221108', 
             #if para contains more than 1900 tokens truncate it
-            prompt=f'Paragraph:{para}\n\nAnswer the question using this paragraph.\n\nQuestion: {q}\nAnswer:', 
+            prompt=f'Paragraph:{para}\n\nAnswer the query using this paragraph.\n\Query: {q}\nAnswer:', 
             max_tokens=100, 
             temperature=0.4, 
             k=0, 
@@ -102,7 +102,7 @@ def gen_better_answer(ques, ans):
     with st.spinner('Cofinding the best answer...'):
         response = co.generate( 
             model='command-xlarge-20221108', 
-            prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a new answer that uses the best answers and makes reference to the question.', 
+            prompt=f'Answers:{ans}\n\Query: {ques}\n\nGenerate a new answer that uses the best answers and makes reference to the query.', 
             max_tokens=100, 
             temperature=0.4, 
             k=0, 
@@ -134,7 +134,8 @@ def display(query, results):
     st.subheader("Relevant documents")
     # display the results
     for i, row in results.iterrows():
-        # display the 'Category' outlined and coloured in purple
+        #there are 2 columns and 3 rows
+        
         st.markdown(f'**{row["Type"]}**')
         st.markdown(f'**{row["Category"]}**')
         st.markdown(f'{row["title"]}')
