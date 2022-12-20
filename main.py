@@ -117,8 +117,10 @@ st.image('beach.png', width=700)
 st.subheader("A semantic search tool built for the Cohere community")
 
 # add a smaller text
-st.write("This tool uses the Cohere API to search through the Cohere knowledge base and generate answers to questions. It uses the Cohere embed endpoint to find relevant documents, and the Cohere generate endpoint to generate answers to questions.")
-st.write('Select a question from the examples or ask your own using the search function.')
+# add a collapsible section to display the text and label it About
+with st.expander('About'):
+    st.write("This tool uses the Cohere API to search through the Cohere knowledge base and generate answers to questions. It uses the Cohere embed endpoint to find relevant documents, and the Cohere generate endpoint to generate answers to questions.")
+    st.write('Select a question from the examples or ask your own using the search function.')
 
 # add the if statements to run the search function when the user clicks the buttons
 
