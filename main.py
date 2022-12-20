@@ -112,7 +112,7 @@ def display(query, results):
         st.write('')
 
 # add an image to the top of the page, the image is 'beach.png'
-st.image('beach.png', width=500)
+st.image('beach.png', width=750)
 # add a subtitle
 st.subheader("A semantic search tool built for the Cohere community")
 
