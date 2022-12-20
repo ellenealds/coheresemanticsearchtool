@@ -165,6 +165,9 @@ if query != '':
 else:
     st.write('')
 
+# display a url in an iframe
+st.markdown('<iframe src="https://txt.cohere.ai/generative-ai-part-1/" width="700" height="400"></iframe>', unsafe_allow_html=True)
+
 
     
     
