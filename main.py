@@ -51,6 +51,22 @@ def search(query, n_results, df, search_index, co):
         df = df.sort_values(by='similarity', ascending=False)
         return df
 
+# this function takes an index id and returns the 5 most similar documents
+def get_similar_docs(index_id, df, search_index, co):
+    with st.spinner('Cofinding similar documents...'):
+        # Get the query's embedding
+        query_embed = co.embed(texts=[df['text'][index_id]],
+                        model="large",
+                        truncate="LEFT").embeddings
+        # Get the nearest neighbors and similarity score for the query and the embeddings, append it to the dataframe
+        nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], 5, include_distances=True)
+        # filter the dataframe to only include the nearest neighbors using the index
+        df = df[df.index.isin(nearest_neighbors[0])]
+        df['similarity'] = nearest_neighbors[1]
+        df['nearest_neighbors'] = nearest_neighbors[0]
+        df = df.sort_values(by='similarity', ascending=False)
+        return df
+
 def search_project(query, n_results, df, search_index, co, filters):
     with st.spinner('Cofinding relevant documents...'):
 
@@ -152,6 +168,16 @@ def display(query, results):
             else:
                 # display the iframe
                 st.write(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
+        with st.expander('View similar documents'):
+            # run the get_similar_docs function to get the similar documents to this document
+            # paramerters get_similar_docs(index_id, df, search_index, co):
+            # when the user selects ' get similar documents' run the function to get the similar documents
+            if st.button('Get similar documents'):
+                similar_docs = get_similar_docs(row['nearest_neighbors'], df, search_index, co)
+                # display the similar documents Type, title, url as a link called 'View page' in a table
+                st.table(similar_docs[['Type', 'Category', 'title', 'link']])
+
+
 
             st.write('')      
 
