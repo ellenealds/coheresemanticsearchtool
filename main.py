@@ -126,7 +126,7 @@ with st.expander('About'):
 
 query = st.text_input('Ask a question about Co:here')
 if st.button('Search'):
-    results = search(query, 5, df, search_index, co)
+    results = search(query, 4, df, search_index, co)
     
 
 # add three columns to display the buttons
@@ -136,19 +136,19 @@ with col1:
     # add a button to search for a specific question
     if st.button('How can I build a text summariser?'):
         query = 'How can I build a text summariser?'
-        results = search(query, 5, df, search_index, co)
+        results = search(query, 4, df, search_index, co)
 
 with col2:
 
     if st.button('How can I build a sentiment classifier?'):
         query = 'How can I build a sentiment classifier?'
-        results = search(query, 5, df, search_index, co)
+        results = search(query, 4, df, search_index, co)
 
     
 with col3:
     if st.button('How can I build a text generator?'):
         query = 'How can I build a text generator?'
-        results = search(query, 5, df, search_index, co)
+        results = search(query, 4, df, search_index, co)
 
 if query != '':
     display(query, results)
