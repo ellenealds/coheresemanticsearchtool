@@ -113,11 +113,12 @@ def display(query, results):
         st.markdown(f'**{row["Category"]}**')
         st.markdown(f'{row["title"]}')
         # display the url as a hyperlink and add a button to open the url in a new tab
-        st.markdown(f'[{row["link"]}]({row["link"]})')
         st.write(row['answer'])
         # collapse the text
-        with st.expander('Read more'):
-            st.write(row['text'])
+        with st.expander('View page'):
+            st.markdown(f'[{row["link"]}]({row["link"]})')
+            # add an iframe for the link
+            st.markdown(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
         st.write('')
 
 # add an image to the top of the page, the image is 'beach.png'
@@ -165,8 +166,6 @@ if query != '':
 else:
     st.write('')
 
-# display a url in an iframe
-st.markdown('<iframe src="https://txt.cohere.ai/generative-ai-part-1/" width="700" height="400"></iframe>', unsafe_allow_html=True)
 
 
     
