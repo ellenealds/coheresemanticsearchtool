@@ -70,7 +70,7 @@ def gen_answer(q, para):
 def gen_better_answer(ques, ans): 
     response = co.generate( 
         model='command-xlarge-20221108', 
-        prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a precise new answer that uses the best answers and makes reference to the question.', 
+        prompt=f'Answers:{ans}\n\nQuestion: {ques}\n\nGenerate a new answer that uses the best answers and makes reference to the question.', 
         max_tokens=100, 
         temperature=0.4, 
         k=0, 
