@@ -50,6 +50,24 @@ def search(query, n_results, df, search_index, co):
         df['nearest_neighbors'] = nearest_neighbors[0]
         df = df.sort_values(by='similarity', ascending=False)
         return df
+
+def search_project(query, n_results, df, search_index, co, filters):
+    with st.spinner('Cofinding relevant documents...'):
+
+        # Get the query's embedding
+        query_embed = co.embed(texts=[query],
+                        model="large",
+                        truncate="LEFT").embeddings
+        
+        # Get the nearest neighbors and similarity score for the query and the embeddings, append it to the dataframe
+        nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
+        # filter the dataframe to only include the nearest neighbors using the index
+        df = df[df.index.isin(nearest_neighbors[0])]
+        df['similarity'] = nearest_neighbors[1]
+        df['nearest_neighbors'] = nearest_neighbors[0]
+        df = df.sort_values(by='similarity', ascending=False)
+        df = df[df['Type'].isin(filters)]
+        return df
 # use threadpool executor, and concurrent modules to run the generation in parallel
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import concurrent.futures
@@ -164,6 +182,19 @@ if choice == "Cofinder":
             query = 'How can I build a text classifier?'
             results = search(query, 4, df, search_index, co)
     # if search is empty, do nothing
-    if not results.empty:
+    if query != '':
         # display the results
         display(query, results)
+    else:  
+        st.write('')
+
+if choice == "Project Inspiration":
+    project_query = st.text_input('Search for a project inspiration')
+
+# Blog, Video, Hackathon Examples, User Documentation, Product Documentation
+# add a multi-select box to select the categories to search
+categories = st.multiselect('Select categories to search', ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation'])
+# if the user selects search, then run the search function
+if st.button('Search'):
+    results = search(project_query, 4, df, search_index, co, categories)
+    display(project_query, results)
