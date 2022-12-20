@@ -143,8 +143,8 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     # add a button to search for a specific question
-    if st.button('How can I build a text summariser?'):
-        query = 'How can I build a text summariser?'
+    if st.button('How can I build a chatbot with Cohere?'):
+        query = 'How can I build a chatbot with Cohere?'
         results = search(query, 4, df, search_index, co)
 
 with col2:
@@ -155,12 +155,15 @@ with col2:
 
     
 with col3:
-    if st.button('How can I build a text generator?'):
-        query = 'How can I build a text generator?'
+    if st.button('What is the generate model?'):
+        query = 'What is the generate model?'
         results = search(query, 4, df, search_index, co)
 
 if query != '':
     display(query, results)
+
+else:
+    st.write('')
 
 
     
