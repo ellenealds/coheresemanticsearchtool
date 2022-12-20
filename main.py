@@ -55,7 +55,8 @@ import concurrent.futures
 # define a function to generate an answer
 def gen_answer(q, para): 
     if len(para.split()) > 1900:
-            para = ' '.join(para.split()[:1900])
+            # truncate the string
+            para = para[:1900]
     response = co.generate( 
         model='command-xlarge-20221108', 
         #if para contains more than 1900 tokens truncate it
