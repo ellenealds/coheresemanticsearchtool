@@ -66,7 +66,11 @@ def search_project(query, n_results, df, search_index, co, filters):
         df['similarity'] = nearest_neighbors[1]
         df['nearest_neighbors'] = nearest_neighbors[0]
         df = df.sort_values(by='similarity', ascending=False)
-        df = df[df['Type'].isin(filters)]
+        # if filters are selected, filter the dataframe
+        if filters:
+            df = df[df['Type'].isin(filters)]
+        else:
+            df = df
         return df
 # use threadpool executor, and concurrent modules to run the generation in parallel
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -141,10 +145,22 @@ def display(query, results):
             st.markdown(f'[{row["link"]}]({row["link"]})')
             st.markdown(f'<a href="{row["link"]}" target="_blank">Open in new tab</a>', unsafe_allow_html=True)
             # add an iframe for the link
-            st.markdown(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
-            st.write('')
-            # the markdown link doesnt work in the iframe, so add a button to open the link in a new tab
-        
+            # if the link is a youtube video, then add the media player
+            if 'youtube' in row['link']:
+                # display the media player
+                st.markdown(f'<iframe width="700" height="400" src="{row["link"]}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', unsafe_allow_html=True)
+            else:
+                #some urls don't allow the connection to be made, so add a try except block
+                try:
+                    # display the iframe
+                    st.markdown(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
+                except:
+                    st.write('This page cannot be displayed, use the link to view the page.')
+                    # provide a link to the page
+                    st.markdown(f'[{row["link"]}]({row["link"]})')
+                    # add df text
+                    st.write(row['text'])
+            st.write('')      
 
 # add an image to the top of the page, the image is 'beach.png'
 st.image('beach.png', width=700)
