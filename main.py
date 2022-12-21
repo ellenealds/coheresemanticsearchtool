@@ -230,7 +230,7 @@ if choice == "Project Inspiration":
     query = st.text_input('Search for a product')
     # if the search is not empty, then run the search function
     if query != '':
-        results = search(query, 7, product, search_index, co, 'product')
+        results = search(query, 5, product, search_index, co, 'product')
         # results is an object, so we need to convert it to a dataframe
         results = pd.DataFrame(results)
         # display the results
