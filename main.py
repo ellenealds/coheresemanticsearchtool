@@ -178,13 +178,8 @@ def display(query, results):
                 st.write(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
             st.write('')      
 def display_product(df):
-    # df is an object, i want to convert it to a dataframe
-    # convert the object to a dataframe
-    df = pd.DataFrame(df)
-    # reset the index
-    df = df.reset_index(drop=True)
-    for row in df.iterrows():
-        st.write(row)
+    # display the dataframe as a table
+    st.table(df)
 
 
 # add an image to the top of the page, the image is 'beach.png'
