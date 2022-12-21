@@ -229,6 +229,6 @@ if choice == "Project Inspiration":
     query = st.text_input('Search for a product')
     # if the search is not empty, then run the search function
     if query != '':
-        results = search(query, 4, df, search_index, co, 'product')
+        results = search(query, 4, product, search_index, co, 'product')
         # display the results
         display_product(results)
