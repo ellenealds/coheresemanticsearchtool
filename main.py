@@ -248,4 +248,5 @@ if choice == "Project Inspiration":
     # if the user selects search, then run the search function
     if st.button('Search'):
         results = search(project_query, 4, product, search_index, co, 'notregular')
-        display_product(results)
+        st.write(results)
+        #display_product(results)
