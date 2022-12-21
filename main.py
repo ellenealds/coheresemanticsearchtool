@@ -248,7 +248,7 @@ if choice == "Project Inspiration":
     # if the user selects search, then run the search function
     if st.button('Search'):
         results = search(project_query, 6, product, search_index, co, 'notregular')
-        for row in results.iterrows():
+        for row in results:
             st.write(row.result['product'])
             st.write(row.result['subtitle'])
             st.write(row.result['about'])
