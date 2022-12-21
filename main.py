@@ -178,8 +178,9 @@ def display(query, results):
                 st.write(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
             st.write('')      
 def display_product(df):
-    # display the dataframe as a table
-    st.table(df)
+    # display the dataframe as a table and on;y inclide the columns subtitle, url, and about
+    st.table(df[['Product','subtitle', 'about']])
+
 
 
 # add an image to the top of the page, the image is 'beach.png'
