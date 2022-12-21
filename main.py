@@ -83,15 +83,15 @@ def search_project(query, n_results, df, search_index, co, filters):
                         truncate="LEFT").embeddings
         
         # Get the nearest neighbors and similarity score for the query and the embeddings, append it to the dataframe
-        nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
+        nearest_neighbors = search_index_prod.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
         # filter the dataframe to only include the nearest neighbors using the index
         df = df[df.index.isin(nearest_neighbors[0])]
         df['similarity'] = nearest_neighbors[1]
         df['nearest_neighbors'] = nearest_neighbors[0]
-        df = df.sort_values(by='similarity', ascending=False)
+        df = df.sort_values(by='similarity', ascending=True)
         # if filters are selected, filter the dataframe
         if filters:
-            df = df[df['Type'].isin(filters)]
+            df = df[df['product'].isin(filters)]
         else:
             df = df
         return df
@@ -228,9 +228,11 @@ if choice == "Cofinder":
 if choice == "Project Inspiration":
     # add a search function that will update the dataframe as the user types
     query = st.text_input('Search for a product')
+    # add a filter so the user can multiselect a product, take this from the unique values in the dataframe
+    product_sel = st.multiselect('Filter by product', product['product'].unique())
     # if the search is not empty, then run the search function
     if query != '':
-        results = search(query, 5, product, search_index, co, 'product')
+        results = search_project(query, 5, product, search_index, co, product_sel)
         # results is an object, so we need to convert it to a dataframe
         results = pd.DataFrame(results)
         # display the results
