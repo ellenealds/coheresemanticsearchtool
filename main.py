@@ -230,5 +230,7 @@ if choice == "Project Inspiration":
     # if the search is not empty, then run the search function
     if query != '':
         results = search(query, 4, product, search_index, co, 'product')
+        # results is an object, so we need to convert it to a dataframe
+        results = pd.DataFrame(results)
         # display the results
         display_product(results)
