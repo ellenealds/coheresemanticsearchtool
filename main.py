@@ -51,7 +51,7 @@ def load_data(df):
     search_index.save('search_index_product.ann')
     return df, search_index
 
-product, search_index_prod = load_data(product,product)
+product, search_index_prod = load_data(product)
 
 def search(query, n_results, df, search_index, co, type):
     with st.spinner('Cofinding relevant documents...'):
