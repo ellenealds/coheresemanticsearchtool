@@ -15,9 +15,10 @@ def embeddings(texts,sleep_time=5):
     return response
 
 df = pd.read_excel('coherefulllistoflinks.xlsx')
+product = pd.read_csv('productinspiration.csv')
 
 @st.experimental_singleton
-def load_data(df,):
+def load_data(df,type):
     df['embeddings'] = embeddings(df['text'])
     # drop rows frm text_df that havve less than 8 words
     df = df[df['text'].str.split().str.len() > 10]
@@ -29,12 +30,16 @@ def load_data(df,):
     # Build the search index
     search_index.build(10)
     #save the search index
-    search_index.save('search_index.ann')
+    if type == 'df':
+        search_index.save(f'search_index.ann')
+    else:
+        search_index.save(f'search_index_product.ann')
     return df, search_index
 
-df, search_index = load_data(df)
+df, search_index = load_data(df,df)
+product, search_index_prod = load_data(product,product)
 
-def search(query, n_results, df, search_index, co):
+def search(query, n_results, df, search_index, co, type):
     with st.spinner('Cofinding relevant documents...'):
 
         # Get the query's embedding
@@ -43,7 +48,11 @@ def search(query, n_results, df, search_index, co):
                         truncate="LEFT").embeddings
         
         # Get the nearest neighbors and similarity score for the query and the embeddings, append it to the dataframe
-        nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
+        if type == 'df':
+            nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
+        else:
+            nearest_neighbors = search_index_prod.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
+        #nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
         # filter the dataframe to only include the nearest neighbors using the index
         df = df[df.index.isin(nearest_neighbors[0])]
         df['similarity'] = nearest_neighbors[1]
@@ -172,24 +181,24 @@ choice = st.sidebar.radio("Menu", tabs)
 
 if choice == "Cofinder":
     # add the if statements to run the search function when the user clicks the buttons
-    query = st.text_input('Ask Cofinder a question')
+    query = st.text_input('')
     if st.button('Search'):
-        results = search(query, 4, df, search_index, co)
+        results = search(query, 4, df, search_index, co, df)
     # add three columns to display the buttons
     col1, col2, col3 = st.columns(3)
     with col1:
         # add a button to search for a specific question
         if st.button('How can I build a chatbot with Cohere?'):
             query = 'How can I build a chatbot with Cohere?'
-            results = search(query, 4, df, search_index, co)
+            results = search(query, 4, df, search_index, co, df)
     with col2:
         if st.button('How can I build a sentiment classifier?'):
             query = 'How can I build a sentiment classifier?'
-            results = search(query, 4, df, search_index, co)
+            results = search(query, 4, df, search_index, co, df)
     with col3:
         if st.button('What applications can I build with Cohere endpoints?'):
             query = 'What applications can I build with Cohere endpoints?'
-            results = search(query, 4, df, search_index, co)
+            results = search(query, 4, df, search_index, co, df)
     # if search is empty, do nothing
     if query != '':
         # display the results
@@ -202,8 +211,8 @@ if choice == "Project Inspiration":
 
     # Blog, Video, Hackathon Examples, User Documentation, Product Documentation
     # add a multi-select box to select the categories to search
-    categories = st.multiselect('Select categories to search', ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation'])
+    #categories = st.multiselect('Select categories to search', ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation'])
     # if the user selects search, then run the search function
     if st.button('Search'):
-        results = search_project(project_query, 4, df, search_index, co, categories)
+        results = search(project_query, 4, df, search_index, co, product)
         display(project_query, results)
