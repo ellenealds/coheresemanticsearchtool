@@ -179,7 +179,7 @@ def display(query, results):
             st.write('')      
 def display_product(df):
     # display the dataframe as a table and on;y inclide the columns subtitle, url, and about
-    st.table(df[['Product','subtitle', 'about']])
+    st.table(df[['product','subtitle', 'about']])
 
 
 
