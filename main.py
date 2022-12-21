@@ -178,8 +178,9 @@ def display(query, results):
                 st.write(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
             st.write('')      
 def display_product(df):
-    # df is a tuple, so we need to unpack it
-    df = df[0]
+    # df is a tuple and giving a key error when trying to access the dataframe
+    df = df[1]
+    # display the results
     for row in df.iterrows():
         st.markdown(f'**{row["product"]}**')
         st.markdown(f'**{row["subtitle"]}**')
