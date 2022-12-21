@@ -179,8 +179,8 @@ def display(query, results):
             st.write('')      
 def display_product(df):
     # df is a tuple and giving a key error when trying to access the dataframe
-    df = df[1]
     # display the results
+    df = pd.DataFrame(df)
     for row in df.iterrows():
         st.markdown(f'**{row["product"]}**')
         st.markdown(f'**{row["subtitle"]}**')
