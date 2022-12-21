@@ -178,8 +178,9 @@ def display(query, results):
                 st.write(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
             st.write('')      
 def display_product(df):
-    # df is a tuple, i want to convert it to a dataframe
-    df = pd.DataFrame(df, columns=['subtitle', 'about', 'product', 'url', 'install'])
+    # df is an object, i want to convert it to a dataframe
+    # convert the object to a dataframe
+    df = pd.DataFrame(df)
     # reset the index
     df = df.reset_index(drop=True)
     for row in df.iterrows():
