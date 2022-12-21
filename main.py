@@ -228,5 +228,5 @@ if choice == "Project Inspiration":
     #categories = st.multiselect('Select categories to search', ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation'])
     # if the user selects search, then run the search function
     if st.button('Search'):
-        results = search(project_query, 4, df, search_index, co, 'notregular')
+        results = search(project_query, 4, product, search_index, co, 'notregular')
         display(project_query, results)
