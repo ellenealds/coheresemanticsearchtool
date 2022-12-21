@@ -71,7 +71,7 @@ def search(query, n_results, df, search_index, co, type):
         df = df[df.index.isin(nearest_neighbors[0])]
         df['similarity'] = nearest_neighbors[1]
         df['nearest_neighbors'] = nearest_neighbors[0]
-        df = df.sort_values(by='similarity', ascending=False)
+        df = df.sort_values(by='similarity', ascending=True)
         return df
 
 def search_project(query, n_results, df, search_index, co, filters):
