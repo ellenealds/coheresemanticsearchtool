@@ -225,30 +225,10 @@ if choice == "Cofinder":
         st.write('')
 
 if choice == "Project Inspiration":
-    project_query = st.text_input('Search for a project inspiration')
-
-    # Blog, Video, Hackathon Examples, User Documentation, Product Documentation
-    # add a multi-select box to select the categories to search
-    #categories = st.multiselect('Select categories to search', ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation'])
-    # if the user selects search, then run the search function
-    if st.button('Search'):
-        results = search(project_query, 6, product, search_index, co, 'notregular')
-    # add three columns to display the buttons
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        # add a button to search for a specific question
-        if st.button('How can I build a chatbot with Cohere?'):
-            project_query = 'How can I build a chatbot with Cohere?'
-            results = search(project_query, 6, product, search_index, co, 'notregular')
-    with col2:
-        if st.button('How can I build a sentiment classifier?'):
-            project_query = 'How can I build a sentiment classifier?'
-            results = search(project_query, 6, product, search_index, co, 'notregular')
-    with col3:
-        if st.button('What applications can I build with Cohere endpoints?'):
-            project_query = 'What applications can I build with Cohere endpoints?'
-            results = search(project_query, 6, product, search_index, co, 'notregular')
-    # if search is empty, do nothing
-    if project_query != '':
+    # add a search function that will update the dataframe as the user types
+    query = st.text_input('Search for a product')
+    # if the search is not empty, then run the search function
+    if query != '':
+        results = search(query, 4, df, search_index, co, 'product')
         # display the results
         display_product(results)
