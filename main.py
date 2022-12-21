@@ -62,7 +62,7 @@ def search(query, n_results, df, search_index, co, type):
                         truncate="LEFT").embeddings
         
         # Get the nearest neighbors and similarity score for the query and the embeddings, append it to the dataframe
-        if type == 'df':
+        if type == 'regular':
             nearest_neighbors = search_index.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
         else:
             nearest_neighbors = search_index_prod.get_nns_by_vector(query_embed[0], n_results, include_distances=True)
@@ -197,22 +197,22 @@ if choice == "Cofinder":
     # add the if statements to run the search function when the user clicks the buttons
     query = st.text_input('')
     if st.button('Search'):
-        results = search(query, 4, df, search_index, co, df)
+        results = search(query, 4, df, search_index, co, 'regular')
     # add three columns to display the buttons
     col1, col2, col3 = st.columns(3)
     with col1:
         # add a button to search for a specific question
         if st.button('How can I build a chatbot with Cohere?'):
             query = 'How can I build a chatbot with Cohere?'
-            results = search(query, 4, df, search_index, co, df)
+            results = search(query, 4, df, search_index, co, 'regular')
     with col2:
         if st.button('How can I build a sentiment classifier?'):
             query = 'How can I build a sentiment classifier?'
-            results = search(query, 4, df, search_index, co, df)
+            results = search(query, 4, df, search_index, co, 'regular')
     with col3:
         if st.button('What applications can I build with Cohere endpoints?'):
             query = 'What applications can I build with Cohere endpoints?'
-            results = search(query, 4, df, search_index, co, df)
+            results = search(query, 4, df, search_index, co, 'regular')
     # if search is empty, do nothing
     if query != '':
         # display the results
@@ -228,5 +228,5 @@ if choice == "Project Inspiration":
     #categories = st.multiselect('Select categories to search', ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation'])
     # if the user selects search, then run the search function
     if st.button('Search'):
-        results = search(project_query, 4, df, search_index, co, product)
+        results = search(project_query, 4, df, search_index, co, 'notregular')
         display(project_query, results)
