@@ -18,7 +18,7 @@ df = pd.read_excel('coherefulllistoflinks.xlsx')
 product = pd.read_csv('productinspiration.csv')
 
 @st.experimental_singleton
-def load_data(df,type):
+def load_data(df):
     df['embeddings'] = embeddings(df['text'])
     # drop rows frm text_df that havve less than 8 words
     df = df[df['text'].str.split().str.len() > 10]
@@ -30,13 +30,27 @@ def load_data(df,type):
     # Build the search index
     search_index.build(10)
     #save the search index
-    if type == 'df':
-        search_index.save(f'search_index.ann')
-    else:
-        search_index.save(f'search_index_product.ann')
+    search_index.save('search_index.ann')
     return df, search_index
 
-df, search_index = load_data(df,df)
+df, search_index = load_data(df)
+
+@st.experimental_singleton
+def load_data(df):
+    df['embeddings'] = embeddings(df['subtitle_product_about'])
+    # drop rows frm text_df that havve less than 8 words
+    df = df[df['subtitle_product_about'].str.split().str.len() > 10]
+    # Create the search index, pass the size of embedding
+    search_index = AnnoyIndex(4096, 'angular')
+    # Add all the vectors to the search index, these are stored in the dataframe 'post_members['embeddings']'
+    for i, vector in enumerate(df['embeddings']):
+        search_index.add_item(i, vector)
+    # Build the search index
+    search_index.build(10)
+    #save the search index
+    search_index.save('search_index_product.ann')
+    return df, search_index
+
 product, search_index_prod = load_data(product,product)
 
 def search(query, n_results, df, search_index, co, type):
