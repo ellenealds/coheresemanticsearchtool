@@ -248,8 +248,9 @@ if choice == "Project Inspiration":
     # if the user selects search, then run the search function
     if st.button('Search'):
         results = search(project_query, 4, product, search_index, co, 'notregular')
-        st.write(results)
-        # create a string combining the text from subtite_product_about
-        string = ' '.join(results['subtitle_product_about'].tolist())
-        st.write(string)
-        #display_product(results)
+        for row in results.iterrows():
+            st.write(row.product)
+            st.write(row.subtitle)
+            st.write(row.about)
+            st.write(row.url)
+            st.write('')
