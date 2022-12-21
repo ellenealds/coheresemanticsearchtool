@@ -178,7 +178,7 @@ def display(query, results):
                 st.write(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
             st.write('')      
 def display_product(df):
-    for row in results.iterrows():
+    for row in df.iterrows():
         st.markdown(f'**{row["product"]}**')
         st.markdown(f'**{row["subtitle"]}**')
         st.markdown(f'{row["about"]}')
@@ -248,9 +248,22 @@ if choice == "Project Inspiration":
     # if the user selects search, then run the search function
     if st.button('Search'):
         results = search(project_query, 6, product, search_index, co, 'notregular')
-        for row in results:
-            st.write(row.result['product'])
-            st.write(row.result['subtitle'])
-            st.write(row.result['about'])
-            st.write(row.result['url'])
-            st.write('')
+    # add three columns to display the buttons
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        # add a button to search for a specific question
+        if st.button('How can I build a chatbot with Cohere?'):
+            project_query = 'How can I build a chatbot with Cohere?'
+            results = search(project_query, 6, product, search_index, co, 'notregular')
+    with col2:
+        if st.button('How can I build a sentiment classifier?'):
+            project_query = 'How can I build a sentiment classifier?'
+            results = search(project_query, 6, product, search_index, co, 'notregular')
+    with col3:
+        if st.button('What applications can I build with Cohere endpoints?'):
+            project_query = 'What applications can I build with Cohere endpoints?'
+            results = search(project_query, 6, product, search_index, co, 'notregular')
+    # if search is empty, do nothing
+    if project_query != '':
+        # display the results
+        display_product(results)
