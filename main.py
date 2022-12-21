@@ -178,9 +178,8 @@ def display(query, results):
                 st.write(f'<iframe src="{row["link"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
             st.write('')      
 def display_product(df):
-    # df is a tuple and giving a key error when trying to access the dataframe
-    # display the results
-    df = pd.DataFrame(df)
+    # df is a tuple, i want to convert it to a dataframe
+    df = pd.DataFrame(df[1])
     for row in df.iterrows():
         st.write(row)
 
