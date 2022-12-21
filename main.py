@@ -182,22 +182,7 @@ def display_product(df):
     # display the results
     df = pd.DataFrame(df)
     for row in df.iterrows():
-        st.markdown(f'**{row["product"]}**')
-        st.markdown(f'**{row["subtitle"]}**')
-        st.markdown(f'{row["about"]}')
-        # collapse the text
-        with st.expander('View page'):
-            st.markdown(f'[{row["url"]}]({row["link"]})')
-            st.markdown(f'<a href="{row["url"]}" target="_blank">Open in new tab</a>', unsafe_allow_html=True)
-            # add an iframe for the link
-            # if the link is a youtube video, then add the media player
-            if 'youtube' in row['url']:
-                # display the media player
-                st.video(row["url"])
-            else:
-                # display the iframe
-                st.write(f'<iframe src="{row["url"]}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
-            st.write('')
+        st.write(row)
 
 
 # add an image to the top of the page, the image is 'beach.png'
