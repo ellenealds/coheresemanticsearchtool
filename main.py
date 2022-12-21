@@ -179,7 +179,9 @@ def display(query, results):
             st.write('')      
 def display_product(df):
     # df is a tuple, i want to convert it to a dataframe
-    df = pd.DataFrame(df[1])
+    df = pd.DataFrame(df, columns=['subtitle', 'about', 'product', 'url', 'install'])
+    # reset the index
+    df = df.reset_index(drop=True)
     for row in df.iterrows():
         st.write(row)
 
