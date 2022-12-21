@@ -247,10 +247,10 @@ if choice == "Project Inspiration":
     #categories = st.multiselect('Select categories to search', ['Blog', 'Video', 'Hackathon Examples', 'User Documentation', 'Product Documentation'])
     # if the user selects search, then run the search function
     if st.button('Search'):
-        results = search(project_query, 4, product, search_index, co, 'notregular')
+        results = search(project_query, 6, product, search_index, co, 'notregular')
         for row in results.iterrows():
-            st.write(row.product)
-            st.write(row.subtitle)
-            st.write(row.about)
-            st.write(row.url)
+            st.write(row.result['product']'])
+            st.write(row.result['subtitle'])
+            st.write(row.result['about'])
+            st.write(row.result['url'])
             st.write('')
