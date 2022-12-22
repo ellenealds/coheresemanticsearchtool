@@ -229,11 +229,13 @@ if choice == "Project Inspiration":
     # add a search function that will update the dataframe as the user types
     query = st.text_input('Search for a product')
     # add a filter so the user can multiselect a product, take this from the unique values in the dataframe
-    product_sel = st.multiselect('Filter by product', product['product'].unique())
+    #product_sel = st.multiselect('Filter by product', product['product'].unique())
     # if the search is not empty, then run the search function
     if query != '':
-        results = search_project(query, 4, product, search_index, co, product_sel)
+        results = search(query, 4, product, search_index, co, 'product')
         # results is an object, so we need to convert it to a dataframe
         results = pd.DataFrame(results)
         # display the results
         display_product(results)
+    else:
+        st.write('')
