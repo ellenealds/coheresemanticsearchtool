@@ -254,7 +254,7 @@ if choice == "Project Inspiration":
         results = pd.DataFrame(results)
         # for each row in the table, display each row as text and add a button that will allow the user to select the row
         for index, row in results.iterrows():
-            st.write(row[0])
+            st.write(row)
             if st.button('Select'):
                 st.write(row[0])
                 st.balloons()
