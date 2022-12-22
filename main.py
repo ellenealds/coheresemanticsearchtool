@@ -238,7 +238,7 @@ def product_ideas(prompt):
             stop_sequences=["---"], 
             return_likelihoods='NONE',
             num_generations=5) 
-        return response.generations.text
+        return response.generations
 
 if choice == "Project Inspiration":
     # add a search function that will update the dataframe as the user types
