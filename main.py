@@ -232,7 +232,7 @@ if choice == "Project Inspiration":
     product_sel = st.multiselect('Filter by product', product['product'].unique())
     # if the search is not empty, then run the search function
     if query != '':
-        results = search_project(query, 5, product, search_index, co, product_sel)
+        results = search_project(query, 4, product, search_index, co, product_sel)
         # results is an object, so we need to convert it to a dataframe
         results = pd.DataFrame(results)
         # display the results
