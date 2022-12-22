@@ -242,10 +242,12 @@ def product_ideas(queryop,prompt):
 
 if choice == "Project Inspiration":
     # add a search function that will update the dataframe as the user types
-    # use the unique list of subtitle as a single select box
+    # create a variable containins a unique list of subtitle
+    unique = product['subtitle'].unique()
+    # pass this unqie items to a selectbox
+    queryop = st.selectbox('Select a subtitle', unique)
 
-    # add a select box that will allow the user to select an option
-    queryop = st.selectbox(product['subtitle'].unique())
+   
     query = st.text_input('Add a title for your product or leave it blank to get a random idea')
     # add a filter so the user can multiselect a product, take this from the unique values in the dataframe
     #product_sel = st.multiselect('Filter by product', product['product'].unique())
