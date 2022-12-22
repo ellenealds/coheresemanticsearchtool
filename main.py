@@ -248,5 +248,24 @@ if choice == "Project Inspiration":
     # if the search is not empty, then run the search function
     if query != '':
         results = product_ideas(query)
-        st.write(results)
+        # convert the results to a dataframe
+        results = pd.DataFrame(results)
+        # add a table that enables the user to select a row
+        selected_row = st.table(results)
+        # add a button that will allow the user to select the row
+        if st.button('Select'):
+            # get the index of the selected row
+            index = selected_row.index
+            # get the value of the selected row
+            selected_row = results.iloc[index]
+            # add a text box that will display the selected row
+            st.text(selected_row)
+            # add a button that will allow the user to save the selected row
+            # run the search function on the product dataset
+            # if the search is not empty, then run the search function
+            if selected_row != '':
+                # search the product dataset for the selected row
+                searchProd = search(selected_row, 4, product, search_index_prod, co, 'notregular')
+                st.write(searchProd)
+                   
 
