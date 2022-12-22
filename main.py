@@ -246,32 +246,29 @@ if choice == "Project Inspiration":
     unique = product['product'].unique()
     # pass this unqie items to a selectbox
     queryop = st.selectbox('Select a subtitle', unique)
-
-   
     query = st.text_input('Add a title for your product or leave it blank to get a random idea')
-    # add a filter so the user can multiselect a product, take this from the unique values in the dataframe
-    #product_sel = st.multiselect('Filter by product', product['product'].unique())
-    # if the search is not empty, then run the search function
-    if query != '':
+    # add a button that will allow the user to search
+    if st.button('Search'):
         results = product_ideas(queryop,query)
         # convert the results to a dataframe
         results = pd.DataFrame(results)
-        # add a table that enables the user to select a row
-        selected_row = st.table(results)
-        # add a button that will allow the user to select the row
-        if st.button('Select'):
-            # get the index of the selected row
-            index = selected_row.index
-            # get the value of the selected row
-            selected_row = results.iloc[index]
-            # add a text box that will display the selected row
-            st.text(selected_row)
-            # add a button that will allow the user to save the selected row
-            # run the search function on the product dataset
-            # if the search is not empty, then run the search function
-            if selected_row != '':
-                # search the product dataset for the selected row
-                searchProd = search(selected_row, 4, product, search_index_prod, co, 'notregular')
-                st.write(searchProd)
-                   
+        # for each row in the table, add a button that will allow the user to select the row
+        for index, row in results.iterrows():
+            if st.button(row['product']):
+                # get the index of the selected row
+                index = row.index
+                # get the value of the selected row
+                selected_row = results.iloc[index]
+                # add a text box that will display the selected row
+                st.text(selected_row)
+                # add a button that will allow the user to save the selected row
+                # run the search function on the product dataset
+                # if the search is not empty, then run the search function
+                if selected_row != '':
+                    # search the product dataset for the selected row
+                    searchProd = search(selected_row, 4, product, search_index_prod, co, 'notregular')
+                    st.write(searchProd)
+        
 
+
+    
