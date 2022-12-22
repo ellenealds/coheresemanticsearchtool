@@ -252,22 +252,12 @@ if choice == "Project Inspiration":
         results = product_ideas(queryop,query)
         # convert the results to a dataframe
         results = pd.DataFrame(results)
-        # for each row in the table, add a button that will allow the user to select the row
+        # for each row in the table, display each row as text and add a button that will allow the user to select the row
         for index, row in results.iterrows():
-            if st.button(row['product']):
-                # get the index of the selected row
-                index = row.index
-                # get the value of the selected row
-                selected_row = results.iloc[index]
-                # add a text box that will display the selected row
-                st.text(selected_row)
-                # add a button that will allow the user to save the selected row
-                # run the search function on the product dataset
-                # if the search is not empty, then run the search function
-                if selected_row != '':
-                    # search the product dataset for the selected row
-                    searchProd = search(selected_row, 4, product, search_index_prod, co, 'notregular')
-                    st.write(searchProd)
+            st.write(row[0])
+            if st.button('Select'):
+                st.write(row[0])
+                st.balloons()
         
 
 
