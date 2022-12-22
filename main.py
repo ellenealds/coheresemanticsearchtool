@@ -257,8 +257,7 @@ if choice == "Project Inspiration":
         st.write(results)
         # add a button to search for similar products
     if st.button('Search for similar products'):
-        results2 = search(results, 4, product, search_index_prod, co, 'not regular')
-        st.write(results2)
+        st.write(search(results, 4, product, search_index_prod, co, 'not regular'))
     
 
 
