@@ -243,7 +243,7 @@ def product_ideas(queryop,prompt):
 if choice == "Project Inspiration":
     # add a search function that will update the dataframe as the user types
     # create a variable containins a unique list of subtitle
-    unique = product['subtitle'].unique()
+    unique = product['product'].unique()
     # pass this unqie items to a selectbox
     queryop = st.selectbox('Select a subtitle', unique)
 
