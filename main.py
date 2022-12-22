@@ -237,7 +237,7 @@ def product_ideas(queryop,prompt):
             presence_penalty=0, 
             stop_sequences=["---"], 
             return_likelihoods='NONE',
-            num_generations=5) 
+            num_generations=1) 
         return response.generations
 
 if choice == "Project Inspiration":
@@ -253,11 +253,12 @@ if choice == "Project Inspiration":
         # convert the results to a dataframe
         results = pd.DataFrame(results)
         # for each row in the table, display each row as text and add a button that will allow the user to select the row
-        for index, row in results.iterrows():
-            st.write(row)
-            if st.button('Select'):
-                st.write(row[0])
-                st.balloons()
+        # show item in dataframe
+        st.write(results)
+        # add a button to search for similar products
+        if st.button('Search for similar products'):
+            results = search(results, 4, product, search_index_prod, co, 'not regular')
+            st.write(results)
         
 
 
