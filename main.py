@@ -23,7 +23,7 @@ def load_data(df):
     # drop rows frm text_df that havve less than 8 words
     df = df[df['text'].str.split().str.len() > 10]
     # Create the search index, pass the size of embedding
-    search_index = AnnoyIndex(4096, 'angular')
+    search_index = AnnoyIndex(df.shape[1], 'angular')
     # Add all the vectors to the search index, these are stored in the dataframe 'post_members['embeddings']'
     for i, vector in enumerate(df['embeddings']):
         search_index.add_item(i, vector)
@@ -41,7 +41,7 @@ def load_data(df):
     # drop rows frm text_df that havve less than 8 words
     df = df[df['subtitle_product_about'].str.split().str.len() > 10]
     # Create the search index, pass the size of embedding
-    search_index = AnnoyIndex(4096, 'angular')
+    search_index = AnnoyIndex(df.shape[1], 'angular')
     # Add all the vectors to the search index, these are stored in the dataframe 'post_members['embeddings']'
     for i, vector in enumerate(df['embeddings']):
         search_index.add_item(i, vector)
