@@ -4,7 +4,10 @@ import cohere
 import time
 from annoy import AnnoyIndex
 from concurrent.futures import ThreadPoolExecutor
-co = cohere.Client('bE6Is3wvtmXyHtgnCQocDIgdH7PcYwdR21ZhnXgN') 
+#co = cohere.Client('bE6Is3wvtmXyHtgnCQocDIgdH7PcYwdR21ZhnXgN') 
+
+# COHERE_API_KEY is stored in streamlit secrets
+co = cohere .Client(st.secrets['COHERE_API_KEY '])
 
 def embeddings(texts,sleep_time=5):
     # add a wait time to simulate a long running process
@@ -172,7 +175,7 @@ with col3:
 
 with col4:
     if st.button('How can I use Cohere to make efficiencies?'):
-        query = 'How can I use Cohere to malke efficiencies?'
+        query = 'How can I use Cohere to make efficiencies?'
         results = search(query, 4, df, search_index, co, 'regular')
 # if search is empty, do nothing
 if query != '':
