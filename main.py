@@ -162,17 +162,17 @@ with col1:
         query = 'How can I build a chatbot with Cohere?'
         results = search(query, 4, df, search_index, co, 'regular')
 with col2:
-    if st.button('What can I build a sentiment classifier?'):
+    if st.button('What can I build with the sentiment classifier?'):
         query = 'What can I build a sentiment classifier?'
         results = search(query, 4, df, search_index, co, 'regular')
 with col3:
-    if st.button('How can I use cohere to create value for my business?'):
-        query = 'How can I use cohere to create value for my business?'
+    if st.button('How can I use Cohere to create value for my business?'):
+        query = 'How can I use Cohere to create value for my business?'
         results = search(query, 4, df, search_index, co, 'regular')
 
 with col4:
-    if st.button('How can I use cohere to improve efficiencies?'):
-        query = 'How can I use cohere to improve efficiencies?'
+    if st.button('How can I use Cohere to make efficiencies?'):
+        query = 'How can I use Cohere to malke efficiencies?'
         results = search(query, 4, df, search_index, co, 'regular')
 # if search is empty, do nothing
 if query != '':
