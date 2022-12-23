@@ -7,7 +7,8 @@ from concurrent.futures import ThreadPoolExecutor
 #co = cohere.Client('bE6Is3wvtmXyHtgnCQocDIgdH7PcYwdR21ZhnXgN') 
 
 # COHERE_API_KEY is stored in streamlit secrets
-co = cohere .Client('COHERE_API_KEY')
+COHERE_API_KEY = st.secrets["COHERE_API_KEY"]
+co = cohere .Client(COHERE_API_KEY)
 
 def embeddings(texts,sleep_time=5):
     # add a wait time to simulate a long running process
