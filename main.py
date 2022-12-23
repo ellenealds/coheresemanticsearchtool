@@ -155,7 +155,7 @@ query = st.text_input('')
 if st.button('Search'):
     results = search(query, 4, df, search_index, co, 'regular')
 # add three columns to display the buttons
-col1, col2, col3, col4 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 with col1:
     # add a button to search for a specific question
     if st.button('How can I build a chatbot with Cohere?'):
