@@ -24,7 +24,7 @@ def load_data(df):
     df = df[df['text'].str.split().str.len() > 10]
     # Create the search index, pass the size of embedding
     search_index = AnnoyIndex(4096, 'angular')
-    # Add all the vectors to the search index, these are stored in the dataframe 'post_members['embeddings']'
+    # Add all the vectors to the search index, these are stored in the dataframe
     for i, vector in enumerate(df['embeddings']):
         search_index.add_item(i, vector)
     # Build the search index
@@ -155,19 +155,24 @@ query = st.text_input('')
 if st.button('Search'):
     results = search(query, 4, df, search_index, co, 'regular')
 # add three columns to display the buttons
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(3)
 with col1:
     # add a button to search for a specific question
     if st.button('How can I build a chatbot with Cohere?'):
         query = 'How can I build a chatbot with Cohere?'
         results = search(query, 4, df, search_index, co, 'regular')
 with col2:
-    if st.button('How can I build a sentiment classifier?'):
-        query = 'How can I build a sentiment classifier?'
+    if st.button('What can I build a sentiment classifier?'):
+        query = 'What can I build a sentiment classifier?'
         results = search(query, 4, df, search_index, co, 'regular')
 with col3:
-    if st.button('What applications can I build with Cohere endpoints?'):
-        query = 'What applications can I build with Cohere endpoints?'
+    if st.button('How can I use cohere to create value for my business?'):
+        query = 'How can I use cohere to create value for my business?'
+        results = search(query, 4, df, search_index, co, 'regular')
+
+with col4:
+    if st.button('How can I use cohere to improve efficiencies?'):
+        query = 'How can I use cohere to improve efficiencies?'
         results = search(query, 4, df, search_index, co, 'regular')
 # if search is empty, do nothing
 if query != '':
