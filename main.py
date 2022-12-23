@@ -4,7 +4,7 @@ import cohere
 import time
 from annoy import AnnoyIndex
 from concurrent.futures import ThreadPoolExecutor
-#co = cohere.Client('bE6Is3wvtmXyHtgnCQocDIgdH7PcYwdR21ZhnXgN') 
+ 
 
 # COHERE_API_KEY is stored in streamlit secrets
 COHERE_API_KEY = st.secrets["COHERE_API_KEY"]
